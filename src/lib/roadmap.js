@@ -235,3 +235,18 @@ export function calculateRoadmapProgress(events,subtasks,university){
   const completed=relevantEvents.filter(event=>event.completed).length+relevantSubtasks.filter(task=>task.completed).length;
   return total?Math.round(completed/total*100):0;
 }
+
+
+export function getRoadmapStatus(event,today=new Date()){
+  if(event.completed)return 'completed';
+  const eventDate=new Date(`${event.date}T23:59:59`);
+  const base=new Date(today);
+  base.setHours(0,0,0,0);
+  if(eventDate<base)return 'overdue';
+  const days=Math.ceil((eventDate-base)/86400000);
+  return days<=14?'soon':'ontrack';
+}
+
+export function roadmapStatusLabel(status){
+  return {completed:'Выполнено',overdue:'Просрочено',soon:'Скоро',ontrack:'В графике'}[status]||'В графике';
+}
