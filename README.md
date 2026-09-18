@@ -38,6 +38,7 @@ Northstar превращает профиль пользователя — оц�
 - приватный шортлист и сравнение 2–4 вузов с последней AI-оценкой;
 - персональный roadmap по требованиям вузов из шортлиста;
 - восстановление пароля и полное удаление аккаунта.
+- Google OAuth рядом с email/password входом;
 
 ## Стек
 
@@ -72,6 +73,8 @@ npm run preview
 5. Скопировать `.env.example` в `.env.local` и заполнить публичные ключи Supabase.
 
 В настройках Auth → URL Configuration добавь production URL и `${production_origin}/reset-password` в разрешённые redirect URLs.
+
+Для Google OAuth включи Google provider в Supabase Auth, укажи Google Client ID/Secret и добавь callback URL Supabase в Google Cloud Console. Supabase автоматически связывает identities с подтверждённым одинаковым email; существующий email/password flow остаётся доступен.
 
 Для локального Supabase: `supabase start`, затем `npm run dev`.
 
