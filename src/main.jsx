@@ -3,6 +3,7 @@ import {createRoot} from 'react-dom/client';
 import {CircleAlert} from 'lucide-react';
 import App from './App';
 import './styles.css';
+import './mobile-nav.css';
 
 class ErrorBoundary extends React.Component{
  constructor(props){super(props);this.state={hasError:false}}
