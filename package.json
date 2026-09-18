@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "seed": "supabase db reset"
+    "seed": "supabase db reset",
+    "seed:universities": "node scripts/import-universities.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.4",
