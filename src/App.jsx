@@ -35,7 +35,112 @@ function Evaluator(){const {profile,universities}=useWorkspace();const [universi
 
 function Assistant(){const {user}=useAuth();const {profile}=useWorkspace();const [messages,setMessages]=useState([]);const [input,setInput]=useState('');const [busy,setBusy]=useState(false);const [error,setError]=useState('');useEffect(()=>{supabase.from('ai_chat_messages').select('id,role,content,created_at').eq('user_id',user.id).order('created_at').then(({data,error:loadError})=>{if(loadError)setError('Не удалось загрузить историю чата.');else setMessages(data||[])})},[user.id]);async function send(e){e.preventDefault();const message=input.trim();if(!message||busy)return;setInput('');setError('');setBusy(true);const userMessage={id:`local-user-${Date.now()}`,role:'user',content:message};const assistantId=`local-assistant-${Date.now()}`;setMessages(current=>[...current,userMessage,{id:assistantId,role:'assistant',content:''}]);try{const {data:{session}}=await supabase.auth.getSession();const response=await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/assistant-chat`,{method:'POST',headers:{Authorization:`Bearer ${session?.access_token}`,'Content-Type':'application/json',apikey:import.meta.env.VITE_SUPABASE_ANON_KEY},body:JSON.stringify({message})});if(!response.ok){const payload=await response.json().catch(()=>({}));throw new Error(payload.error||'Ассистент временно недоступен.')}if(!response.body)throw new Error('Браузер не поддерживает потоковый ответ.');const reader=response.body.getReader();const decoder=new TextDecoder();while(true){const {done,value}=await reader.read();if(done)break;const chunk=decoder.decode(value,{stream:true});setMessages(current=>current.map(item=>item.id===assistantId?{...item,content:item.content+chunk}:item))}}catch(sendError){setMessages(current=>current.filter(item=>item.id!==assistantId));setError(friendlyError(sendError,'Не удалось получить ответ ассистента.'))}finally{setBusy(false)}}return <section><PageTitle icon={<MessageCircle/>} eyebrow="AI-ассистент" title="Эссе и стратегия — с контекстом твоего профиля." sub={`Ассистент видит сохранённый профиль, шортлист и roadmap под ${profile.target_major||'твоё направление'}, но не гарантирует поступление и не выдумывает достижения.`}/><div className="panel mt-8 overflow-hidden"><div className="h-[55vh] min-h-[360px] overflow-y-auto p-5 md:p-7 space-y-4" aria-live="polite">{!messages.length&&!busy&&<div className="empty-state"><Sparkles size={34}/><h3 className="font-extrabold mt-3">С чего начнём?</h3><p className="muted max-w-lg">Пришли черновик эссе для разбора или спроси, как усилить стратегию под выбранные вузы.</p></div>}{messages.map(item=><div key={item.id} className={item.role==='user'?'ml-auto max-w-[85%] rounded-2xl bg-[#17352e] text-white p-4':'mr-auto max-w-[90%] rounded-2xl bg-[#f2e6df] p-4'}><div className="text-xs font-bold uppercase tracking-wider opacity-60 mb-1">{item.role==='user'?'Ты':'Northstar AI'}</div><p className="whitespace-pre-wrap leading-relaxed">{item.content||<span className="inline-flex gap-1"><span className="animate-pulse">●</span><span className="animate-pulse">●</span><span className="animate-pulse">●</span></span>}</p></div>)}</div><form onSubmit={send} className="border-t border-black/10 p-4 flex gap-3"><textarea rows="2" maxLength="12000" value={input} onChange={e=>setInput(e.target.value)} placeholder="Вставь абзац эссе или задай вопрос о стратегии…" aria-label="Сообщение AI-ассистенту"/><button className="btn-primary self-end" disabled={busy||!input.trim()}><Send size={16}/><span className="hidden sm:inline">Отправить</span></button></form></div>{error&&<p className="error mt-4">{error}</p>}<p className="source mt-3">История хранится в защищённой базе и удаляется вместе с аккаунтом.</p></section>}
 
-function Roadmap(){const {profile}=useWorkspace();const [events,setEvents]=useState([]);const [activities,setActivities]=useState([]);const [apExams,setApExams]=useState([]);const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');const load=async()=>{const [{data:eventsData},{data:activityData},{data:apData}]=await Promise.all([supabase.from('calendar_events').select('*').eq('profile_id',profile.id).order('date'),supabase.from('activities').select('name,tier,hours_per_week').eq('profile_id',profile.id),supabase.from('ap_exams').select('subject,score').eq('profile_id',profile.id)]);setEvents(eventsData||[]);setActivities(activityData||[]);setApExams(apData||[])};useEffect(()=>{load()},[profile.id]);async function generate(){setBusy(true);setMessage('');if(profile.needs_full_aid)await supabase.rpc('add_financial_aid_deadlines',{target_profile_id:profile.id});const {data:shortlist,error}=await supabase.from('shortlist').select('universities(name,country,region,application_deadline,other_requirements)').eq('profile_id',profile.id).order('created_at');if(error){setMessage(friendlyError(error,'Не удалось загрузить шортлист.'));setBusy(false);return}const today=new Date();today.setHours(12,0,0,0);const iso=date=>date.toISOString().slice(0,10);const dateAfter=days=>{const date=new Date(today);date.setDate(date.getDate()+days);return date};const major=profile.target_major||'выбранное направление';const auto=[];(shortlist||[]).forEach((row,index)=>{const university=row.universities;if(!university)return;const tests=Array.isArray(university.other_requirements?.tests)?university.other_requirements.tests.join(', '):university.other_requirements?.tests||'уточнить тесты и пакет документов';auto.push({profile_id:profile.id,title:`Подготовить требования — ${university.name}`,date:university.application_deadline||iso(dateAfter(21+index*14)),type:'task',description:`Автоматический этап под ${major}. Подготовить: ${tests}. Портфолио сейчас: GPA ${profile.gpa_unweighted??'не указан'}, SAT ${profile.sat??'не указан'}, NUET ${profile.nuet??'не указан'}, ${activities.length} активностей и ${apExams.length} AP-курсов.`,source:'auto_ai_roadmap'});const region=`${university.country||''} ${university.region||''}`.toLowerCase();if(region.includes('hong kong'))auto.push({profile_id:profile.id,title:`Подготовка к интервью — ${university.name}`,date:iso(dateAfter(42+index*14)),type:'task',description:`Автоматический этап под ${major}. Провести mock-интервью примерно за 6 недель до подачи.`,source:'auto_ai_roadmap'})});const countries=(profile.target_countries||[]).map(x=>x.toLowerCase());if(countries.some(x=>x.includes('kazakhstan'))&&!profile.nuet)auto.push({profile_id:profile.id,title:'Сдать/пересдать NUET',date:iso(dateAfter(35)),type:'exam',description:`Автоматический этап под ${major}. Зафиксировать диагностический NUET и план подготовки.`,source:'auto_ai_roadmap'});if(!activities.length)auto.push({profile_id:profile.id,title:`Собрать активность под ${major}`,date:iso(dateAfter(14)),type:'task',description:'Добавь проект с измеримым результатом, который подтверждает выбранный Major / Spike.',source:'auto_ai_roadmap'});const {error:saveError}=await supabase.from('calendar_events').upsert(auto,{onConflict:'profile_id,title,date,source'});setMessage(saveError?friendlyError(saveError):`Roadmap обновлён: ${auto.length} этапов с учётом профиля.`);await load();setBusy(false)}async function updateEvent(id,patch){setEvents(items=>items.map(item=>item.id===id?{...item,...patch}:item));const {error}=await supabase.from('calendar_events').update(patch).eq('id',id);if(error)setMessage(friendlyError(error))}async function addManual(){const {data,error}=await supabase.from('calendar_events').insert({profile_id:profile.id,title:'Новая задача',date:new Date().toISOString().slice(0,10),type:'task',description:'Добавлено вручную',source:'manual'}).select().single();if(error)setMessage(friendlyError(error));else if(data)setEvents(items=>[...items,data])}return <section><PageTitle icon={<CalendarDays/>} eyebrow="roadmap + calendar" title="План, который меняется вместе с портфолио." sub="Этапы учитывают Major / Spike, тесты, активности, AP-курсы и шортлист. Выполненные пункты сохраняются в базе."/><div className="flex flex-wrap gap-3 mt-7"><button className="btn-primary" disabled={busy} onClick={generate}><Sparkles size={16}/>{busy?'Генерируем…':'Пересчитать roadmap'}</button><button className="btn-ghost" onClick={addManual}><Plus size={16}/>Добавить вручную</button></div>{message&&<p className="notice mt-4">{message}</p>}<div className="timeline mt-8">{events.map((event,index)=><div className="timeline-item" key={event.id}><div className="timeline-dot">{index+1}</div><div className={'panel p-5 flex-1 '+(event.completed?'opacity-60':'')}><div className="flex flex-wrap justify-between gap-3"><div className="flex-1"><label className="check-row"><input type="checkbox" checked={Boolean(event.completed)} onChange={e=>updateEvent(event.id,{completed:e.target.checked})}/><span><div className="text-xs font-bold uppercase tracking-wider text-[#e76443]">{new Date(`${event.date}T00:00:00`).toLocaleDateString('ru-RU',{month:'long',year:'numeric'})} · {event.type}</div><input className={'mt-2 font-extrabold '+(event.completed?'line-through':'')} value={event.title} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,title:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{title:e.target.value})}/><input className="mt-2" type="date" value={event.date} onChange={e=>updateEvent(event.id,{date:e.target.value})} aria-label="Дата этапа"/></span></label><textarea className="mt-3" rows="2" value={event.description||''} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,description:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{description:e.target.value})}/></div><span className="badge bg-[#f2e6df]">{event.source}</span></div><button className="btn-ghost mt-3" onClick={()=>downloadIcs(event)}><CalendarDays size={15}/>Экспорт .ics</button></div></div>)}</div>{!events.length&&<div className="empty-state panel mt-8"><CalendarDays size={38}/><h3 className="font-extrabold mt-3">Календарь пока пуст</h3><p className="muted">Сгенерируй roadmap — в него попадут требования шортлиста и aid-дедлайны.</p></div>}</section>}
+function Roadmap(){
+  const {profile}=useWorkspace();
+  const [events,setEvents]=useState([]);
+  const [activities,setActivities]=useState([]);
+  const [apExams,setApExams]=useState([]);
+  const [olympiads,setOlympiads]=useState([]);
+  const [busy,setBusy]=useState(false);
+  const [message,setMessage]=useState('');
+
+  const load=async()=>{
+    const [{data:eventsData},{data:activityData},{data:apData},{data:awardData}]=await Promise.all([
+      supabase.from('calendar_events').select('*').eq('profile_id',profile.id).order('date'),
+      supabase.from('activities').select('name,tier,hours_per_week').eq('profile_id',profile.id),
+      supabase.from('ap_exams').select('subject,score').eq('profile_id',profile.id),
+      supabase.from('olympiads').select('name,level,result').eq('profile_id',profile.id),
+    ]);
+    setEvents(eventsData||[]);
+    setActivities(activityData||[]);
+    setApExams(apData||[]);
+    setOlympiads(awardData||[]);
+  };
+  useEffect(()=>{load()},[profile.id]);
+
+  async function generate(){
+    setBusy(true);
+    setMessage('');
+    if(profile.needs_full_aid)await supabase.rpc('add_financial_aid_deadlines',{target_profile_id:profile.id});
+    const {data:shortlist,error}=await supabase.from('shortlist').select('universities(name,country,region,application_deadline,other_requirements)').eq('profile_id',profile.id).order('created_at');
+    if(error){setMessage(friendlyError(error,'Не удалось загрузить шортлист.'));setBusy(false);return}
+
+    const today=new Date();
+    today.setHours(12,0,0,0);
+    const nextCycleStart=new Date(today.getFullYear()+(today.getMonth()>=7?1:0),7,1,12);
+    const iso=date=>date.toISOString().slice(0,10);
+    const clamp=date=>{
+      const result=new Date(date);
+      if(result<today)return new Date(today);
+      if(result>nextCycleStart)return new Date(nextCycleStart);
+      return result;
+    };
+    const dateAfter=days=>{const date=new Date(today);date.setDate(date.getDate()+days);return clamp(date)};
+    const major=profile.target_major||'выбранное направление';
+    const profileSnapshot=`GPA ${profile.gpa_unweighted??'не указан'}, SAT ${profile.sat??'не указан'}, NUET ${profile.nuet??'не указан'}, IB ${profile.ib_score??'не указан'}, ${activities.length} активностей, ${apExams.length} AP-курсов, ${olympiads.length} наград, ${Array.isArray(profile.languages)?profile.languages.length:0} языков и ${Array.isArray(profile.recommendation_letters)?profile.recommendation_letters.length:0} рекомендаций`;
+    const auto=[];
+
+    (shortlist||[]).forEach((row,index)=>{
+      const university=row.universities;
+      if(!university)return;
+      const rawDeadline=university.application_deadline?new Date(`${university.application_deadline}T12:00:00`):dateAfter(35+index*14);
+      const deadline=Number.isNaN(rawDeadline.getTime())?dateAfter(35+index*14):clamp(rawDeadline);
+      const tests=Array.isArray(university.other_requirements?.tests)?university.other_requirements.tests.join(', '):university.other_requirements?.tests||'уточнить тесты и пакет документов';
+      auto.push({
+        profile_id:profile.id,
+        title:`Подготовить требования — ${university.name}`,
+        date:iso(deadline),
+        type:'deadline',
+        description:`Автоматический этап под ${major}. Подготовить: ${tests}. Портфолио сейчас: ${profileSnapshot}.`,
+        source:'auto_ai_roadmap',
+        metadata:{stage:'university',university:university.name},
+      });
+      const region=`${university.country||''} ${university.region||''}`.toLowerCase();
+      if(region.includes('hong kong')){
+        const interviewDate=new Date(deadline);
+        interviewDate.setDate(interviewDate.getDate()-42);
+        auto.push({
+          profile_id:profile.id,
+          title:`Подготовка к интервью — ${university.name}`,
+          date:iso(clamp(interviewDate)),
+          type:'task',
+          description:`Автоматический этап под ${major}. Провести mock-интервью примерно за 6 недель до дедлайна ${university.name}.`,
+          source:'auto_ai_roadmap',
+          metadata:{stage:'interview',university:university.name},
+        });
+      }
+    });
+
+    const countries=(profile.target_countries||[]).map(value=>value.toLowerCase());
+    if(countries.some(value=>value.includes('kazakhstan'))&&!profile.nuet)auto.push({profile_id:profile.id,title:'Сдать/пересдать NUET',date:iso(dateAfter(28)),type:'exam',description:`Автоматический этап под ${major}. Зафиксировать диагностический NUET и план подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
+    if(countries.some(value=>value.includes('usa')||value.includes('hong kong'))&&!profile.sat)auto.push({profile_id:profile.id,title:'Сдать пробный SAT',date:iso(dateAfter(21)),type:'exam',description:`Автоматический этап под ${major}. Диагностика покажет, какие разделы требуют подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
+    if(!profile.english_score)auto.push({profile_id:profile.id,title:'Запланировать IELTS / TOEFL',date:iso(dateAfter(14)),type:'exam',description:`Автоматический этап под ${major}. Выбрать экзамен и зафиксировать диагностический результат.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
+    if(!activities.length)auto.push({profile_id:profile.id,title:`Собрать активность под ${major}`,date:iso(dateAfter(14)),type:'task',description:'Добавь проект с измеримым результатом, который подтверждает выбранный Major / Spike.',source:'auto_ai_roadmap',metadata:{stage:'portfolio'}});
+    if(!apExams.length&&!profile.ib_score)auto.push({profile_id:profile.id,title:'Собрать академический план AP / IB',date:iso(dateAfter(30)),type:'task',description:`Автоматический этап под ${major}. Выбери релевантные продвинутые предметы и сроки подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'academics'}});
+
+    if(auto.length){
+      const {error:saveError}=await supabase.from('calendar_events').upsert(auto,{onConflict:'profile_id,title,date,source'});
+      setMessage(saveError?friendlyError(saveError):`Roadmap обновлён: ${auto.length} этапов с учётом полного портфолио.`);
+    }else{
+      setMessage('Добавь вуз в шортлист или заполни портфолио — тогда появятся персональные этапы.');
+    }
+    await load();
+    setBusy(false);
+  }
+
+  async function updateEvent(id,patch){
+    setEvents(items=>items.map(item=>item.id===id?{...item,...patch}:item));
+    const {error}=await supabase.from('calendar_events').update(patch).eq('id',id);
+    if(error)setMessage(friendlyError(error));
+  }
+
+  async function addManual(){
+    const {data,error}=await supabase.from('calendar_events').insert({profile_id:profile.id,title:'Новая задача',date:new Date().toISOString().slice(0,10),type:'task',description:'Добавлено вручную',source:'manual',metadata:{stage:'manual'}}).select().single();
+    if(error)setMessage(friendlyError(error));else if(data)setEvents(items=>[...items,data].sort((a,b)=>a.date.localeCompare(b.date)));
+  }
+
+  return <section><PageTitle icon={<CalendarDays/>} eyebrow="roadmap + calendar" title="План, который меняется вместе с портфолио." sub="Этапы учитывают Major / Spike, тесты, активности, AP/IB, награды и шортлист. Выполненные пункты сохраняются в базе."/><div className="flex flex-wrap gap-3 mt-7"><button className="btn-primary" disabled={busy} onClick={generate}><Sparkles size={16}/>{busy?'Генерируем…':'Пересчитать roadmap'}</button><button className="btn-ghost" onClick={addManual}><Plus size={16}/>Добавить вручную</button></div>{message&&<p className="notice mt-4">{message}</p>}<div className="timeline mt-8">{events.map((event,index)=><div className="timeline-item" key={event.id}><div className="timeline-dot">{index+1}</div><div className={'panel p-5 flex-1 '+(event.completed?'opacity-60':'')}><div className="flex flex-wrap justify-between gap-3"><div className="flex-1"><label className="check-row"><input type="checkbox" checked={Boolean(event.completed)} onChange={e=>updateEvent(event.id,{completed:e.target.checked})}/><span><div className="text-xs font-bold uppercase tracking-wider text-[#e76443]">{new Date(`${event.date}T00:00:00`).toLocaleDateString('ru-RU',{month:'long',year:'numeric'})} · {event.type}</div><input className={'mt-2 font-extrabold '+(event.completed?'line-through':'')} value={event.title} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,title:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{title:e.target.value})}/><input className="mt-2" type="date" value={event.date} onChange={e=>updateEvent(event.id,{date:e.target.value})} aria-label="Дата этапа"/></span></label><textarea className="mt-3" rows="2" value={event.description||''} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,description:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{description:e.target.value})}/></div><span className="badge bg-[#f2e6df]">{event.source}</span></div><button className="btn-ghost mt-3" onClick={()=>downloadIcs(event)}><CalendarDays size={15}/>Экспорт .ics</button></div></div>)}</div>{!events.length&&<div className="empty-state panel mt-8"><CalendarDays size={38}/><h3 className="font-extrabold mt-3">Календарь пока пуст</h3><p className="muted">Сгенерируй roadmap — в него попадут требования шортлиста и aid-дедлайны.</p></div>}</section>;
+}
 
 function Networking(){const {profile,universities}=useWorkspace();const [kind,setKind]=useState('research');const [university,setUniversity]=useState(universities[0]?.name||'университета');const generated=useMemo(()=>kind==='research'?`Subject: Prospective student interested in ${profile.target_major}\n\nDear Professor,\n\nMy name is ${profile.full_name||'[Name]'}, and I am a student at ${profile.school||'[School]'} exploring ${profile.target_major}. I am particularly interested in your work at ${university}. My current portfolio focuses on ${profile.narrative_about_me||'[briefly describe your strongest project]'} and I would be grateful to learn whether there may be a small, well-scoped way to contribute to your research.\n\nI can share a concise portfolio and am happy to complete a trial task.\n\nBest regards,\n${profile.full_name||'[Name]'}`:`Subject: Financial aid reconsideration request\n\nDear Financial Aid Office,\n\nThank you for reviewing my application to ${university}. I am writing to respectfully ask whether my financial aid package can be reconsidered. My family’s realistic annual contribution is ${profile.currency} ${Number(profile.annual_budget||0).toLocaleString()}, and I require substantial support to enroll.\n\nI can provide updated financial documents and context upon request. ${profile.narrative_about_me||''}\n\nSincerely,\n${profile.full_name||'[Name]'}`,[kind,university,profile]);const [draft,setDraft]=useState(generated);useEffect(()=>setDraft(generated),[generated]);return <section><PageTitle icon={<Mail/>} eyebrow="networking utility" title="Черновик, который звучит как ты." sub="Northstar использует профиль для первого варианта. Перед отправкой обязательно проверь факты и адресата."/><div className="grid md:grid-cols-[.7fr_1.3fr] gap-5 mt-8"><div className="panel p-6"><Field label="Тип письма"><select value={kind} onChange={e=>setKind(e.target.value)}><option value="research">Research inquiry</option><option value="aid">Financial aid appeal</option></select></Field><Field label="Университет"><select value={university} onChange={e=>setUniversity(e.target.value)}>{universities.map(u=><option key={u.id}>{u.name}</option>)}</select></Field><div className="notice mt-5">Не отправляй массово. Добавь конкретную работу профессора или детали aid package.</div></div><div className="panel p-6"><textarea className="email-editor" value={draft} onChange={e=>setDraft(e.target.value)}/><button className="btn-primary mt-4" onClick={()=>navigator.clipboard.writeText(draft)}><Clipboard size={16}/>Скопировать черновик</button></div></div></section>}
 
