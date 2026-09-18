@@ -34,7 +34,10 @@ Northstar превращает профиль пользователя — оц�
 - AI-evaluator со связностью Major / Spike и региональными весами;
 - radar chart профиля против среднего поступившего;
 - редактируемые cold-email черновики;
-- 650 синтетических публичных профилей для leaderboard.
+- 650 синтетических публичных профилей для leaderboard;
+- приватный шортлист и сравнение 2–4 вузов с последней AI-оценкой;
+- персональный roadmap по требованиям вузов из шортлиста;
+- восстановление пароля и полное удаление аккаунта.
 
 ## Стек
 
@@ -64,9 +67,11 @@ npm run preview
 
 1. Установить Supabase CLI и связать проект: `supabase link --project-ref <ref>`.
 2. Применить миграции и seed: `supabase db reset` локально либо `supabase db push`, затем выполнить `supabase/seed.sql` в SQL Editor.
-3. Развернуть AI-функцию: `supabase functions deploy evaluate-profile`.
-4. Добавить секреты функции: `supabase secrets set ANTHROPIC_API_KEY=...`.
+3. Развернуть Edge Functions: `supabase functions deploy evaluate-profile` и `supabase functions deploy delete-account`.
+4. Добавить секреты функций: `supabase secrets set ANTHROPIC_API_KEY=... SUPABASE_SERVICE_ROLE_KEY=...`.
 5. Скопировать `.env.example` в `.env.local` и заполнить публичные ключи Supabase.
+
+В настройках Auth → URL Configuration добавь production URL и `${production_origin}/reset-password` в разрешённые redirect URLs.
 
 Для локального Supabase: `supabase start`, затем `npm run dev`.
 
@@ -80,7 +85,7 @@ Frontend (`.env.local`):
 Edge Function secrets:
 
 - `ANTHROPIC_API_KEY` — опционально; без него работает персонализированный rule-based fallback;
-- `SUPABASE_SERVICE_ROLE_KEY` — зарезервирован для серверных административных задач, не передавать во frontend.
+- `SUPABASE_SERVICE_ROLE_KEY` — обязателен для `delete-account` (и серверных обновлений оценки); хранить только в Edge Function secrets, никогда не передавать во frontend.
 
 ## Сценарий для жюри
 
@@ -93,6 +98,16 @@ Edge Function secrets:
 7. Вернуться в профиль через верхний степпер.
 8. Изменить бюджет, страну или экзамен и проверить пересчёт shortlist.
 9. Обновить страницу и убедиться, что прогресс сохранился.
+
+## Обновление базы и функций
+
+```bash
+supabase db push
+supabase functions deploy evaluate-profile
+supabase functions deploy delete-account
+```
+
+Для чистого локального окружения вместо `db push` можно выполнить `supabase db reset`: он применит все миграции по порядку и затем `supabase/seed.sql`.
 
 ## Данные и ограничения
 
