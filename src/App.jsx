@@ -6,7 +6,7 @@ import {AuthProvider,useAuth} from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import {supabase} from './lib/supabase';
 import {friendlyAuthError,friendlyError} from './lib/errors';
-import {formatAdmissionType,formatEventSource,formatEventType,formatRequirementValue,majorContextText,resolveApplicationDeadline,shiftDate,toIsoDate} from './lib/roadmap';
+import {buildUniversityRoadmap,calculateRoadmapProgress,formatAdmissionType,formatEventSource,formatEventType,formatRequirementValue,majorContextText,shiftDate,toIsoDate} from './lib/roadmap';
 
 const tiers={1:'Международный / национальный уровень',2:'Региональный лидер или заметный результат',3:'Стабильная роль в школе / городе',4:'Разовая или начальная школьная активность'};
 const countries=['USA','UK','Netherlands','Hong Kong','Kazakhstan','Switzerland'];
@@ -22,7 +22,7 @@ function ResetPassword(){const {updatePassword}=useAuth();const navigate=useNavi
 function Shell(){const location=useLocation();const [navOpen,setNavOpen]=useState(false);const {user,signOut}=useAuth();const [profile,setProfile]=useState(null);const [universities,setUniversities]=useState([]);const [loading,setLoading]=useState(true);const [loadError,setLoadError]=useState('');useEffect(()=>{(async()=>{const [profileResult,universityResult]=await Promise.all([supabase.from('profiles').select('*').eq('user_id',user.id).maybeSingle(),supabase.from('universities').select('*').order('qs_rank')]);if(profileResult.error||!profileResult.data){setLoadError('Профиль не найден. Примени миграции Supabase и обнови страницу.');setLoading(false);return}setProfile(profileResult.data);setUniversities(universityResult.data||[]);setLoading(false)})()},[user.id]);useEffect(()=>setNavOpen(false),[location.pathname]);if(loading)return <div className="app-loader"><Sparkles className="twinkle"/><p>Загружаем профиль…</p></div>;if(loadError)return <div className="app-loader"><div className="panel p-7 max-w-md text-center"><h1 className="display text-3xl">Нужно подключить профиль.</h1><p className="error mt-3">{loadError}</p><button className="btn-primary mt-5" onClick={()=>window.location.reload()}>Обновить</button><button className="btn-ghost mt-3" onClick={signOut}>Выйти</button></div></div>;return <div className="min-h-screen bg-[#f8f6f1] aurora-page"><header className="app-header"><Link to="/" className="flex items-center gap-2 font-extrabold"><span className="logo-mark">✦</span>northstar</Link><button className="icon-button nav-toggle" aria-label="Открыть меню" aria-expanded={navOpen} aria-controls="primary-navigation" onClick={()=>setNavOpen(value=>!value)}>{navOpen?<X size={18}/>:<Menu size={18}/>}</button><nav id="primary-navigation" className={'app-nav '+(navOpen?'open':'')}><NavLink to="/portfolio">Портфолио</NavLink><NavLink to="/evaluator">AI-оценка</NavLink><NavLink to="/assistant">AI-ассистент</NavLink><NavLink to="/universities">Вузы</NavLink><NavLink to="/compare">Сравнение</NavLink><NavLink to="/roadmap">Roadmap</NavLink><NavLink to="/networking">Письма</NavLink><NavLink to="/settings">Настройки</NavLink></nav><button className="icon-button" aria-label="Выйти" onClick={signOut}><LogOut size={18}/></button></header><DeadlineNotifications user={user} profile={profile}/><main className="max-w-6xl mx-auto px-5 py-8"><Outlet context={{profile,setProfile,universities}}/></main></div>}
 const useWorkspace=()=>useOutletContext();
 
-function DeadlineNotifications({user,profile}){const [items,setItems]=useState([]);useEffect(()=>{if(!profile?.id)return;(async()=>{const today=new Date();today.setHours(0,0,0,0);const end=new Date(today);end.setDate(end.getDate()+7);const {data:events}=await supabase.from('calendar_events').select('id,title,date').eq('profile_id',profile.id).eq('type','deadline').gte('date',today.toISOString().slice(0,10)).lte('date',end.toISOString().slice(0,10));const rows=(events||[]).map(event=>{const eventDate=new Date(`${event.date}T00:00:00`);const days=Math.max(0,Math.round((eventDate-today)/86400000));const reminder_days=days<=1?1:days<=3?3:7;return {user_id:user.id,profile_id:profile.id,event_id:event.id,reminder_days,channel:'in_app'}});if(rows.length)await supabase.from('deadline_notifications').upsert(rows,{onConflict:'event_id,reminder_days,channel',ignoreDuplicates:true});const {data}=await supabase.from('deadline_notifications').select('id,reminder_days,calendar_events(title,date)').eq('profile_id',profile.id).is('shown_at',null).order('created_at').limit(3);setItems(data||[])})()},[profile?.id,user.id]);async function dismiss(id){setItems(current=>current.filter(item=>item.id!==id));await supabase.from('deadline_notifications').update({shown_at:new Date().toISOString()}).eq('id',id)}if(!items.length)return null;return <div className="max-w-6xl mx-auto px-5 pt-4 space-y-2">{items.map(item=><div className="notice flex items-center gap-3" key={item.id}><Bell size={18}/><div className="flex-1"><b>Дедлайн через {item.reminder_days===1?'1 день':`${item.reminder_days} дня`}:</b> {item.calendar_events?.title}<small className="demo">{item.calendar_events?.date}</small></div><button className="icon-button" aria-label="Скрыть уведомление" onClick={()=>dismiss(item.id)}><X size={16}/></button></div>)}</div>}
+function DeadlineNotifications({user,profile}){const [items,setItems]=useState([]);useEffect(()=>{if(!profile?.id)return;(async()=>{const today=new Date();today.setHours(0,0,0,0);const end=new Date(today);end.setDate(end.getDate()+7);const {data:events}=await supabase.from('calendar_events').select('id,title,date').eq('profile_id',profile.id).eq('completed',false).gte('date',today.toISOString().slice(0,10)).lte('date',end.toISOString().slice(0,10));const rows=(events||[]).map(event=>{const eventDate=new Date(`${event.date}T00:00:00`);const days=Math.max(0,Math.round((eventDate-today)/86400000));const reminder_days=days<=1?1:days<=3?3:7;return {user_id:user.id,profile_id:profile.id,event_id:event.id,reminder_days,channel:'in_app'}});if(rows.length)await supabase.from('deadline_notifications').upsert(rows,{onConflict:'event_id,reminder_days,channel',ignoreDuplicates:true});const {data}=await supabase.from('deadline_notifications').select('id,reminder_days,calendar_events(title,date)').eq('profile_id',profile.id).is('shown_at',null).order('created_at').limit(3);setItems(data||[])})()},[profile?.id,user.id]);async function dismiss(id){setItems(current=>current.filter(item=>item.id!==id));await supabase.from('deadline_notifications').update({shown_at:new Date().toISOString()}).eq('id',id)}if(!items.length)return null;return <div className="max-w-6xl mx-auto px-5 pt-4 space-y-2">{items.map(item=><div className="notice flex items-center gap-3" key={item.id}><Bell size={18}/><div className="flex-1"><b>Этап через {item.reminder_days===1?'1 день':`${item.reminder_days} дня`}:</b> {item.calendar_events?.title}<small className="demo">{item.calendar_events?.date}</small></div><button className="icon-button" aria-label="Скрыть уведомление" onClick={()=>dismiss(item.id)}><X size={16}/></button></div>)}</div>}
 
 function Portfolio(){const {profile,setProfile}=useWorkspace();const [draft,setDraft]=useState(()=>{try{return {...emptyProfile,...profile,...JSON.parse(localStorage.getItem(draftKey)||'{}')}}catch{return {...emptyProfile,...profile}}});const [step,setStep]=useState(0);const [activities,setActivities]=useState([]);const [apExams,setApExams]=useState([]);const [olympiads,setOlympiads]=useState([]);const [message,setMessage]=useState('');const [saving,setSaving]=useState(false);useEffect(()=>localStorage.setItem(draftKey,JSON.stringify(draft)),[draft]);useEffect(()=>{Promise.all([supabase.from('activities').select('*').eq('profile_id',profile.id),supabase.from('ap_exams').select('*').eq('profile_id',profile.id),supabase.from('olympiads').select('*').eq('profile_id',profile.id)]).then(([a,ap,o])=>{setActivities(a.data||[]);setApExams(ap.data||[]);setOlympiads(o.data||[])})},[profile.id]);const set=(key,value)=>setDraft(x=>({...x,[key]:value}));const toggleCountry=c=>set('target_countries',draft.target_countries.includes(c)?draft.target_countries.filter(x=>x!==c):[...draft.target_countries,c]);async function save(){setSaving(true);const payload={...draft,id:profile.id,user_id:profile.user_id};['created_at','updated_at','is_demo','leaderboard_score'].forEach(key=>delete payload[key]);const {data,error}=await supabase.from('profiles').upsert(payload).select().single();if(error)setMessage(friendlyError(error));else{setProfile(data);localStorage.removeItem(draftKey);setMessage('Профиль сохранён в Postgres.')}setSaving(false)}async function addActivity(){const {data,error}=await supabase.from('activities').insert({profile_id:profile.id,name:'Новая активность',tier:'4',hours_per_week:2,description:''}).select().single();if(error)setMessage(friendlyError(error));else if(data)setActivities(x=>[...x,data])}async function updateActivity(id,patch){setActivities(x=>x.map(item=>item.id===id?{...item,...patch}:item));const {error}=await supabase.from('activities').update(patch).eq('id',id);if(error)setMessage(friendlyError(error))}async function removeActivity(id){setActivities(x=>x.filter(item=>item.id!==id));await supabase.from('activities').delete().eq('id',id)}async function addAp(){const {data,error}=await supabase.from('ap_exams').insert({profile_id:profile.id,subject:'AP Computer Science',score:1}).select().single();if(error)setMessage(friendlyError(error));else if(data)setApExams(x=>[...x,data])}async function updateAp(id,patch){setApExams(x=>x.map(item=>item.id===id?{...item,...patch}:item));const {error}=await supabase.from('ap_exams').update(patch).eq('id',id);if(error)setMessage(friendlyError(error))}async function removeAp(id){setApExams(x=>x.filter(item=>item.id!==id));await supabase.from('ap_exams').delete().eq('id',id)}async function addOlympiad(){const {data,error}=await supabase.from('olympiads').insert({profile_id:profile.id,name:'Новая награда',level:'school',result:'participant'}).select().single();if(error)setMessage(friendlyError(error));else if(data)setOlympiads(x=>[...x,data])}async function updateOlympiad(id,patch){setOlympiads(x=>x.map(item=>item.id===id?{...item,...patch}:item));const {error}=await supabase.from('olympiads').update(patch).eq('id',id);if(error)setMessage(friendlyError(error))}const kz=draft.target_countries.includes('Kazakhstan');const hk=draft.target_countries.includes('Hong Kong');const labels=['Контекст','Major / Spike','Тесты','Активности','AP курсы','История'];return <section><PageTitle icon={<GraduationCap/>} eyebrow="защищённый профиль" title="Портфолио, которое складывается в историю." sub="Основной путь — последовательно, но вкладки сверху остаются кликабельными. Черновик сохраняется между шагами."/><div className="flex gap-2 mt-7 overflow-x-auto pb-2">{labels.map((label,index)=><button type="button" className={'step-pill '+(step===index?'active':'')} onClick={()=>setStep(index)} key={label}>{index+1}. {label}</button>)}</div><div className="panel p-6 md:p-8 mt-3">{step===0&&<div className="grid md:grid-cols-2 gap-5"><label className="label">Имя<input value={draft.full_name||''} onChange={e=>set('full_name',e.target.value)}/></label><label className="label">Школа<input value={draft.school||''} onChange={e=>set('school',e.target.value)}/></label><label className="label">Город<input value={draft.city||''} onChange={e=>set('city',e.target.value)}/></label><label className="label">Класс<select value={draft.grade||11} onChange={e=>set('grade',Number(e.target.value))}><option value="9">9</option><option value="10">10</option><option value="11">11</option><option value="12">12</option></select></label></div>}{step===1&&<div className="space-y-5"><label className="label">Major / Spike<input value={draft.target_major||''} onChange={e=>set('target_major',e.target.value)} placeholder="Computer Science / AI / Economics"/></label><label className="label">О себе<textarea rows="5" value={draft.narrative_about_me||''} onChange={e=>set('narrative_about_me',e.target.value)}/></label><div><div className="label mb-2">Целевые страны</div><div className="flex flex-wrap gap-2">{countries.map(country=><button type="button" key={country} className={'choice '+(draft.target_countries.includes(country)?'chosen':'')} onClick={()=>toggleCountry(country)}>{draft.target_countries.includes(country)&&<Check size={15}/>} {country}</button>)}</div></div></div>}{step===2&&<div className="grid md:grid-cols-2 gap-5"><label className="label">GPA<input type="number" min="0" max={draft.gpa_scale||4} step=".01" value={draft.gpa_unweighted??''} onChange={e=>set('gpa_unweighted',e.target.value===''?null:Number(e.target.value))}/><small className="hint">Шкала: от 0 до {draft.gpa_scale||4}.</small></label><label className="label">Шкала GPA<input type="number" min="1" max="100" value={draft.gpa_scale||4} onChange={e=>set('gpa_scale',Number(e.target.value))}/></label><label className="label">IELTS / TOEFL<input type="number" step=".5" value={draft.english_score??''} onChange={e=>set('english_score',e.target.value===''?null:Number(e.target.value))}/></label>{!kz&&<label className="label">SAT<input type="number" min="400" max="1600" value={draft.sat??''} onChange={e=>set('sat',e.target.value===''?null:Number(e.target.value))}/></label>}{kz&&<label className="label">NUET<input type="number" min="0" max="240" value={draft.nuet??''} onChange={e=>set('nuet',e.target.value===''?null:Number(e.target.value))}/></label>}{hk&&<label className="check-row"><input type="checkbox" checked={Boolean(draft.interview_ready)} onChange={e=>set('interview_ready',e.target.checked)}/><span><b>Готовность к интервью</b><small className="demo">Для Гонконга это влияет на оценку.</small></span></label>}</div>}{step===3&&<><div className="flex justify-between items-center"><div><h3 className="font-extrabold text-xl">Активности</h3><p className="muted text-sm">Уровень Tier и часы в неделю учитываются AI-оценкой.</p></div><button type="button" className="btn-ghost" onClick={addActivity}><Plus size={16}/>Добавить</button></div><div className="space-y-4 mt-5">{activities.map(activity=><div className="activity-editor" key={activity.id}><input value={activity.name} onChange={e=>updateActivity(activity.id,{name:e.target.value})}/><select value={activity.tier} onChange={e=>updateActivity(activity.id,{tier:e.target.value})}>{Object.entries(tiers).map(([key,value])=><option key={key} value={key}>Tier {key} — {value}</option>)}</select><input type="number" min="0" max="168" value={activity.hours_per_week} onChange={e=>updateActivity(activity.id,{hours_per_week:Number(e.target.value)})} aria-label="Часов в неделю"/><textarea rows="2" value={activity.description||''} onChange={e=>updateActivity(activity.id,{description:e.target.value})}/><button type="button" className="icon-button" aria-label="Удалить активность" onClick={()=>removeActivity(activity.id)}><Trash2 size={16}/></button></div>)}</div></>}{step===4&&<><div className="flex justify-between items-center"><div><h3 className="font-extrabold text-xl">AP курсы</h3><p className="muted text-sm">Предметы и баллы от 1 до 5 попадут в контекст ассистента и roadmap.</p></div><button type="button" className="btn-ghost" onClick={addAp}><Plus size={16}/>Добавить</button></div><div className="space-y-3 mt-5">{apExams.map(ap=><div className="compact-row" key={ap.id}><Activity size={17}/><input value={ap.subject} onChange={e=>updateAp(ap.id,{subject:e.target.value})}/><input type="number" min="1" max="5" value={ap.score} onChange={e=>updateAp(ap.id,{score:Number(e.target.value)})} aria-label="Оценка AP"/><button type="button" className="icon-button" aria-label="Удалить AP курс" onClick={()=>removeAp(ap.id)}><Trash2 size={16}/></button></div>)}</div></>}{step===5&&<div className="space-y-7"><div className="grid md:grid-cols-2 gap-5"><div><h3 className="font-extrabold text-xl">IB, языки и рекомендации</h3><label className="label mt-5">IB total score<input type="number" min="0" max="45" value={draft.ib_score??''} onChange={e=>set('ib_score',e.target.value===''?null:Number(e.target.value))}/></label><label className="label mt-5">Языки и уровни<textarea rows="3" value={(Array.isArray(draft.languages)?draft.languages:[]).join(', ')} onChange={e=>set('languages',e.target.value.split(',').map(x=>x.trim()).filter(Boolean))} placeholder="English — B2, Kazakh — C1"/></label><label className="label mt-5">Рекомендательные письма<textarea rows="3" value={(Array.isArray(draft.recommendation_letters)?draft.recommendation_letters:[]).join(', ')} onChange={e=>set('recommendation_letters',e.target.value.split(',').map(x=>x.trim()).filter(Boolean))} placeholder="Math teacher — requested, CS mentor — draft"/></label></div><div><h3 className="font-extrabold text-xl">Финансовая информация</h3><label className="label mt-5">Годовой бюджет<input type="number" value={draft.annual_budget??''} onChange={e=>set('annual_budget',e.target.value===''?null:Number(e.target.value))}/></label><label className="check-row mt-4"><input type="checkbox" checked={Boolean(draft.needs_full_aid)} onChange={e=>set('needs_full_aid',e.target.checked)}/><span><b>Нужна полная финансовая помощь</b><small className="demo">Добавит финансовые дедлайны в roadmap.</small></span></label><label className="label mt-5">Финансовый контекст<textarea rows="3" value={draft.financial_notes||''} onChange={e=>set('financial_notes',e.target.value)} placeholder="Важные обстоятельства для aid-стратегии"/></label></div></div><div><div className="flex justify-between items-center"><h3 className="font-extrabold text-xl">Awards / олимпиады</h3><button type="button" className="btn-ghost" onClick={addOlympiad}><Plus size={16}/>Добавить</button></div>{olympiads.map(item=><div className="compact-row" key={item.id}><Award size={17}/><input value={item.name} onChange={e=>updateOlympiad(item.id,{name:e.target.value})}/><select value={item.level} onChange={e=>updateOlympiad(item.id,{level:e.target.value})}><option value="school">Школьный</option><option value="regional">Региональный</option><option value="national">Национальный</option><option value="international">Международный</option></select><input value={item.result} onChange={e=>updateOlympiad(item.id,{result:e.target.value})} aria-label="Результат"/></div>)}</div><div className="notice"><b>Summary:</b>&nbsp;{activities.length} активностей · {apExams.length} AP · {olympiads.length} наград · {(draft.target_countries||[]).join(', ')||'страны не выбраны'}</div></div>}</div><div className="flex flex-wrap justify-between items-center gap-3 mt-6"><button type="button" className="btn-ghost" disabled={step===0} onClick={()=>setStep(value=>Math.max(0,value-1))}>← Назад</button><span className="source">Шаг {step+1} из {labels.length} · {message}</span><div className="flex gap-2"><button type="button" className="btn-ghost" disabled={step===labels.length-1} onClick={()=>setStep(value=>Math.min(labels.length-1,value+1))}>Продолжить →</button><button type="button" onClick={save} disabled={saving} className="btn-primary"><Save size={16}/>{saving?'Сохраняем…':'Сохранить'}</button></div></div></section>}
 
@@ -39,9 +39,12 @@ function Assistant(){const {user}=useAuth();const {profile}=useWorkspace();const
 function Roadmap(){
   const {profile}=useWorkspace();
   const [events,setEvents]=useState([]);
+  const [subtasks,setSubtasks]=useState([]);
+  const [history,setHistory]=useState([]);
   const [activities,setActivities]=useState([]);
   const [apExams,setApExams]=useState([]);
   const [olympiads,setOlympiads]=useState([]);
+  const [draggedId,setDraggedId]=useState(null);
   const [busy,setBusy]=useState(false);
   const [message,setMessage]=useState('');
 
@@ -52,97 +55,133 @@ function Roadmap(){
       supabase.from('ap_exams').select('subject,score').eq('profile_id',profile.id),
       supabase.from('olympiads').select('name,level,result').eq('profile_id',profile.id),
     ]);
-    setEvents(eventsData||[]);
+    const loadedEvents=eventsData||[];
+    const ids=loadedEvents.map(event=>event.id);
+    let loadedSubtasks=[];
+    let loadedHistory=[];
+    if(ids.length){
+      const [subtaskResult,historyResult]=await Promise.all([
+        supabase.from('roadmap_subtasks').select('*').in('calendar_event_id',ids).order('due_date').order('sort_order'),
+        supabase.from('roadmap_event_history').select('*').in('calendar_event_id',ids).order('created_at',{ascending:false}),
+      ]);
+      loadedSubtasks=subtaskResult.data||[];
+      loadedHistory=historyResult.data||[];
+    }
+    setEvents(loadedEvents);
+    setSubtasks(loadedSubtasks);
+    setHistory(loadedHistory);
     setActivities(activityData||[]);
     setApExams(apData||[]);
     setOlympiads(awardData||[]);
   };
   useEffect(()=>{load()},[profile.id]);
 
+  const makeProfilePlan=(key,title,date,type,description,appPath,estimatedMinutes,items)=>({
+    key:`profile:${key}`,
+    event:{
+      title,
+      date:toIsoDate(date),
+      type,
+      description,
+      roadmap_key:`profile:${key}`,
+      metadata:{stage:key,why:description,app_path:appPath,estimated_minutes:estimatedMinutes,change_reason:'Этап пересчитан после обновления портфолио'},
+    },
+    subtasks:items.map((item,index)=>({title:item,due_date:toIsoDate(shiftDate(date,(index-items.length+1)*3)),estimated_minutes:Math.max(20,Math.round(estimatedMinutes/items.length)),sort_order:index})),
+  });
+
   async function generate(){
     setBusy(true);
     setMessage('');
     if(profile.needs_full_aid)await supabase.rpc('add_financial_aid_deadlines',{target_profile_id:profile.id});
     const [{data:shortlist,error},{data:previousAuto}]=await Promise.all([
-      supabase.from('shortlist').select('universities(name,country,region,application_deadline,other_requirements)').eq('profile_id',profile.id).order('created_at'),
-      supabase.from('calendar_events').select('id').eq('profile_id',profile.id).eq('source','auto_ai_roadmap'),
+      supabase.from('shortlist').select('universities(*)').eq('profile_id',profile.id).order('created_at'),
+      supabase.from('calendar_events').select('id,roadmap_key').eq('profile_id',profile.id).eq('source','auto_ai_roadmap'),
     ]);
     if(error){setMessage(friendlyError(error,'Не удалось загрузить шортлист.'));setBusy(false);return}
 
     const today=new Date();
     today.setHours(12,0,0,0);
-    const dateAfter=days=>shiftDate(today,days);
-    const majorLabel=String(profile.target_major||'').trim();
-    const majorIntro=majorContextText(majorLabel);
-    const profileSnapshot=`GPA ${profile.gpa_unweighted??'не указан'}, SAT ${profile.sat??'не указан'}, NUET ${profile.nuet??'не указан'}, IB ${profile.ib_score??'не указан'}, ${activities.length} активностей, ${apExams.length} AP-курсов, ${olympiads.length} наград, ${Array.isArray(profile.languages)?profile.languages.length:0} языков и ${Array.isArray(profile.recommendation_letters)?profile.recommendation_letters.length:0} рекомендаций`;
-    const auto=[];
-
-    (shortlist||[]).forEach((row,index)=>{
-      const university=row.universities;
-      if(!university)return;
-      const deadline=resolveApplicationDeadline(university.application_deadline,today,180+index*21);
-      const requirementsDate=shiftDate(deadline,-90);
-      const tests=formatRequirementValue(university.other_requirements?.tests);
-      auto.push({
-        profile_id:profile.id,
-        title:`Подготовить требования — ${university.name}`,
-        date:toIsoDate(requirementsDate),
-        type:'deadline',
-        description:`${majorIntro}За 90 дней до дедлайна ${university.name} собери документы и подготовь: ${tests}. Портфолио сейчас: ${profileSnapshot}.`,
-        source:'auto_ai_roadmap',
-        metadata:{stage:'university',university:university.name,application_deadline:toIsoDate(deadline)},
-      });
-      const region=`${university.country||''} ${university.region||''}`.toLowerCase();
-      if(region.includes('hong kong')){
-        const interviewDate=shiftDate(deadline,-42);
-        auto.push({
-          profile_id:profile.id,
-          title:`Подготовка к интервью — ${university.name}`,
-          date:toIsoDate(interviewDate),
-          type:'task',
-          description:`${majorIntro}Начни mock-интервью за 6 недель до индивидуального дедлайна ${university.name} — ${toIsoDate(deadline)}.`,
-          source:'auto_ai_roadmap',
-          metadata:{stage:'interview',university:university.name,application_deadline:toIsoDate(deadline)},
-        });
-      }
+    const portfolioSummary=`${activities.length} активностей, ${apExams.length} AP-курсов, ${olympiads.length} наград`;
+    const plans=(shortlist||[]).flatMap((row,index)=>{
+      if(!row.universities)return[];
+      return buildUniversityRoadmap(row.universities,profile,{today,fallbackDays:180+index*21,portfolioSummary}).plans;
     });
-
     const countries=(profile.target_countries||[]).map(value=>value.toLowerCase());
-    if(countries.some(value=>value.includes('kazakhstan'))&&!profile.nuet)auto.push({profile_id:profile.id,title:'Сдать/пересдать NUET',date:toIsoDate(dateAfter(28)),type:'exam',description:`${majorIntro}Зафиксируй диагностический NUET и план подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
-    if(countries.some(value=>value.includes('usa')||value.includes('hong kong'))&&!profile.sat)auto.push({profile_id:profile.id,title:'Сдать пробный SAT',date:toIsoDate(dateAfter(21)),type:'exam',description:`${majorIntro}Диагностика покажет, какие разделы требуют подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
-    if(!profile.english_score)auto.push({profile_id:profile.id,title:'Запланировать IELTS / TOEFL',date:toIsoDate(dateAfter(14)),type:'exam',description:`${majorIntro}Выбери экзамен и зафиксируй диагностический результат.`,source:'auto_ai_roadmap',metadata:{stage:'tests'}});
-    if(!activities.length)auto.push({profile_id:profile.id,title:majorLabel?`Собрать активность под ${majorLabel}`:'Собрать профильную активность',date:toIsoDate(dateAfter(14)),type:'task',description:'Добавь проект с измеримым результатом, который подтверждает выбранный Major / Spike.',source:'auto_ai_roadmap',metadata:{stage:'portfolio'}});
-    if(!apExams.length&&!profile.ib_score)auto.push({profile_id:profile.id,title:'Собрать академический план AP / IB',date:toIsoDate(dateAfter(30)),type:'task',description:`${majorIntro}Выбери релевантные продвинутые предметы и сроки подготовки.`,source:'auto_ai_roadmap',metadata:{stage:'academics'}});
+    const majorIntro=majorContextText(profile.target_major);
 
-    if(auto.length){
-      const {data:saved,error:saveError}=await supabase.from('calendar_events').upsert(auto,{onConflict:'profile_id,title,date,source'}).select('id');
-      if(saveError){
-        setMessage(friendlyError(saveError));
-      }else{
-        const keepIds=new Set((saved||[]).map(item=>item.id));
-        const staleIds=(previousAuto||[]).map(item=>item.id).filter(id=>!keepIds.has(id));
-        if(staleIds.length)await supabase.from('calendar_events').delete().in('id',staleIds);
-        setMessage(`Roadmap обновлён: ${auto.length} этапов рассчитаны от дедлайнов вузов.`);
-      }
-    }else{
+    if(countries.some(value=>value.includes('kazakhstan'))&&!profile.nuet)plans.push(makeProfilePlan('nuet','Сдать/пересдать NUET',shiftDate(today,28),'exam',`${majorIntro}NUET нужен для оценки готовности к поступлению в Казахстане.`,'/portfolio',180,['Пройти диагностический вариант','Разобрать слабые темы','Забронировать дату экзамена']));
+    if(countries.some(value=>value.includes('usa')||value.includes('hong kong'))&&!profile.sat)plans.push(makeProfilePlan('sat','Пробный SAT и план подготовки',shiftDate(today,21),'exam',`${majorIntro}Диагностика SAT покажет разрыв до требований вузов шортлиста.`,'/portfolio',210,['Пройти полный пробный тест','Составить список слабых тем','Выбрать дату следующей попытки']));
+    if(!profile.english_score)plans.push(makeProfilePlan('english','Запланировать IELTS / TOEFL',shiftDate(today,14),'exam',`${majorIntro}Языковой результат нужен для проверки минимальных требований программ.`,'/portfolio',150,['Выбрать IELTS или TOEFL','Пройти диагностический тест','Забронировать дату экзамена']));
+    if(!activities.length)plans.push(makeProfilePlan('activity',profile.target_major?`Проект под ${profile.target_major}`:'Профильный проект',shiftDate(today,14),'task','Проект с измеримым результатом усилит связность Major / Spike.','/portfolio',240,['Сформулировать проблему и результат','Собрать минимальную версию проекта','Добавить результат в портфолио']));
+    if(!apExams.length&&!profile.ib_score)plans.push(makeProfilePlan('advanced-courses','План AP / IB',shiftDate(today,30),'task','Продвинутые предметы подтверждают академическую готовность к выбранному Major / Spike.','/portfolio',120,['Выбрать релевантные предметы','Проверить доступные даты и форматы','Добавить предметы в портфолио']));
+
+    if(!plans.length){
       setMessage('Добавь вуз в шортлист или заполни портфолио — тогда появятся персональные этапы.');
+      setBusy(false);
+      return;
     }
+
+    const eventRows=plans.map(plan=>({...plan.event,profile_id:profile.id,source:'auto_ai_roadmap'}));
+    const {data:saved,error:saveError}=await supabase.from('calendar_events').upsert(eventRows,{onConflict:'profile_id,roadmap_key'}).select('id,roadmap_key');
+    if(saveError){
+      setMessage(friendlyError(saveError));
+      setBusy(false);
+      return;
+    }
+
+    const eventByKey=new Map((saved||[]).map(event=>[event.roadmap_key,event.id]));
+    const subtaskRows=plans.flatMap(plan=>(plan.subtasks||[]).map(task=>({...task,calendar_event_id:eventByKey.get(plan.key)}))).filter(task=>task.calendar_event_id);
+    const {error:subtaskError}=subtaskRows.length?await supabase.from('roadmap_subtasks').upsert(subtaskRows,{onConflict:'calendar_event_id,title'}):{error:null};
+    if(subtaskError){
+      setMessage(friendlyError(subtaskError,'Этапы сохранены, но чеклисты не обновились.'));
+      await load();
+      setBusy(false);
+      return;
+    }
+
+    const keepIds=new Set((saved||[]).map(event=>event.id));
+    const staleIds=(previousAuto||[]).map(event=>event.id).filter(id=>!keepIds.has(id));
+    if(staleIds.length)await supabase.from('calendar_events').delete().in('id',staleIds);
+    setMessage(`Roadmap обновлён: ${plans.length} этапов и ${subtaskRows.length} конкретных подзадач.`);
     await load();
     setBusy(false);
   }
 
-  async function updateEvent(id,patch){
-    setEvents(items=>items.map(item=>item.id===id?{...item,...patch}:item));
-    const {error}=await supabase.from('calendar_events').update(patch).eq('id',id);
+  async function updateEvent(id,patch,reason='Этап изменён пользователем'){
+    const current=events.find(event=>event.id===id);
+    const payload={...patch,metadata:{...(current?.metadata||{}),change_reason:reason}};
+    setEvents(items=>items.map(item=>item.id===id?{...item,...payload}:item));
+    const {error}=await supabase.from('calendar_events').update(payload).eq('id',id);
+    if(error)setMessage(friendlyError(error));else await load();
+  }
+
+  async function updateSubtask(id,patch){
+    setSubtasks(items=>items.map(item=>item.id===id?{...item,...patch}:item));
+    const {error}=await supabase.from('roadmap_subtasks').update(patch).eq('id',id);
     if(error)setMessage(friendlyError(error));
   }
 
+  async function addSubtask(event){
+    const {data,error}=await supabase.from('roadmap_subtasks').insert({calendar_event_id:event.id,title:'Новая подзадача',due_date:event.date,estimated_minutes:30,sort_order:subtasks.filter(task=>task.calendar_event_id===event.id).length}).select().single();
+    if(error)setMessage(friendlyError(error));else if(data)setSubtasks(items=>[...items,data]);
+  }
+
   async function addManual(){
-    const {data,error}=await supabase.from('calendar_events').insert({profile_id:profile.id,title:'Новая задача',date:new Date().toISOString().slice(0,10),type:'task',description:'Добавлено вручную',source:'manual',metadata:{stage:'manual'}}).select().single();
+    const {data,error}=await supabase.from('calendar_events').insert({profile_id:profile.id,title:'Новая задача',date:new Date().toISOString().slice(0,10),type:'task',description:'Добавлено вручную',source:'manual',metadata:{stage:'manual',why:'Пользовательский этап',app_path:'/roadmap',estimated_minutes:30}}).select().single();
     if(error)setMessage(friendlyError(error));else if(data)setEvents(items=>[...items,data].sort((a,b)=>a.date.localeCompare(b.date)));
   }
 
-  return <section><PageTitle icon={<CalendarDays/>} eyebrow="roadmap + calendar" title="План, который меняется вместе с портфолио." sub="Этапы учитывают Major / Spike, тесты, активности, AP/IB, награды и шортлист. Выполненные пункты сохраняются в базе."/><div className="flex flex-wrap gap-3 mt-7"><button className="btn-primary" disabled={busy} onClick={generate}><Sparkles size={16}/>{busy?'Генерируем…':'Пересчитать roadmap'}</button><button className="btn-ghost" onClick={addManual}><Plus size={16}/>Добавить вручную</button></div>{message&&<p className="notice mt-4">{message}</p>}<div className="timeline mt-8">{events.map((event,index)=><div className="timeline-item" key={event.id}><div className="timeline-dot">{index+1}</div><div className={'panel p-5 flex-1 '+(event.completed?'opacity-60':'')}><div className="flex flex-wrap justify-between gap-3"><div className="flex-1"><label className="check-row"><input type="checkbox" checked={Boolean(event.completed)} onChange={e=>updateEvent(event.id,{completed:e.target.checked})}/><span><div className="text-xs font-bold uppercase tracking-wider text-[#e76443]">{new Date(`${event.date}T00:00:00`).toLocaleDateString('ru-RU',{month:'long',year:'numeric'})} · {formatEventType(event.type)}</div><input className={'mt-2 font-extrabold '+(event.completed?'line-through':'')} value={event.title} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,title:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{title:e.target.value})}/><input className="mt-2" type="date" value={event.date} onChange={e=>updateEvent(event.id,{date:e.target.value})} aria-label="Дата этапа"/></span></label><textarea className="mt-3" rows="2" value={event.description||''} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,description:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{description:e.target.value})}/></div><span className="badge bg-[#f2e6df]">{formatEventSource(event.source)}</span></div><button className="btn-ghost mt-3" onClick={()=>downloadIcs(event)}><CalendarDays size={15}/>Экспорт .ics</button></div></div>)}</div>{!events.length&&<div className="empty-state panel mt-8"><CalendarDays size={38}/><h3 className="font-extrabold mt-3">Календарь пока пуст</h3><p className="muted">Сгенерируй roadmap — в него попадут требования шортлиста и aid-дедлайны.</p></div>}</section>;
+  async function dropOnEvent(target){
+    const dragged=events.find(event=>event.id===draggedId);
+    if(!dragged||dragged.id===target.id)return;
+    setDraggedId(null);
+    await updateEvent(dragged.id,{date:target.date},`Этап перенесён вручную на дату «${target.title}»`);
+  }
+
+  const overallProgress=calculateRoadmapProgress(events,subtasks);
+  const universities=[...new Set(events.map(event=>event.metadata?.university).filter(Boolean))];
+
+  return <section><PageTitle icon={<CalendarDays/>} eyebrow="roadmap + calendar" title="План действий, а не список дат." sub="Каждый этап объясняет зачем он нужен, ведёт в связанный раздел и разбит на подзадачи с собственными сроками."/><div className="flex flex-wrap gap-3 mt-7"><button className="btn-primary" disabled={busy} onClick={generate}><Sparkles size={16}/>{busy?'Пересчитываем…':'Пересчитать roadmap'}</button><button className="btn-ghost" onClick={addManual}><Plus size={16}/>Добавить свой этап</button></div>{message&&<p className="notice mt-4">{message}</p>}<div className="panel p-5 mt-6"><div className="flex justify-between gap-3"><b>Общий прогресс</b><span>{overallProgress}%</span></div><div className="h-2 rounded-full bg-black/10 mt-2 overflow-hidden"><div className="h-full bg-[#e76443] rounded-full transition-all" style={{width:`${overallProgress}%`}}/></div>{universities.map(university=>{const progress=calculateRoadmapProgress(events,subtasks,university);return <div className="mt-4" key={university}><div className="flex justify-between text-sm"><span>{university}</span><b>{progress}%</b></div><div className="h-1.5 rounded-full bg-black/10 mt-1 overflow-hidden"><div className="h-full bg-[#17352e] rounded-full" style={{width:`${progress}%`}}/></div></div>})}</div><p className="source mt-4">Перетащи карточку на другой этап, чтобы быстро перенести её на ту же дату. На телефоне используй поле даты.</p><div className="timeline mt-5">{events.map((event,index)=>{const eventSubtasks=subtasks.filter(task=>task.calendar_event_id===event.id);const eventHistory=history.filter(item=>item.calendar_event_id===event.id);return <div className="timeline-item" key={event.id} draggable onDragStart={()=>setDraggedId(event.id)} onDragEnd={()=>setDraggedId(null)} onDragOver={e=>e.preventDefault()} onDrop={()=>dropOnEvent(event)}><div className="timeline-dot">{index+1}</div><div className={'panel p-5 flex-1 '+(event.completed?'opacity-60':'')}><div className="flex flex-wrap justify-between gap-3"><div className="flex-1"><label className="check-row"><input type="checkbox" checked={Boolean(event.completed)} onChange={e=>updateEvent(event.id,{completed:e.target.checked},e.target.checked?'Этап отмечен выполненным':'Этап возвращён в работу')}/><span><div className="text-xs font-bold uppercase tracking-wider text-[#e76443]">{new Date(`${event.date}T00:00:00`).toLocaleDateString('ru-RU',{day:'numeric',month:'long',year:'numeric'})} · {formatEventType(event.type)}</div><input className={'mt-2 font-extrabold '+(event.completed?'line-through':'')} value={event.title} onChange={e=>setEvents(items=>items.map(item=>item.id===event.id?{...item,title:e.target.value}:item))} onBlur={e=>updateEvent(event.id,{title:e.target.value},'Название этапа изменено вручную')}/><input className="mt-2" type="date" value={event.date} onChange={e=>updateEvent(event.id,{date:e.target.value},'Дата этапа перенесена вручную')} aria-label="Дата этапа"/></span></label><p className="mt-3 leading-relaxed">{event.description}</p><div className="flex flex-wrap gap-3 mt-3"><span className="badge bg-[#fff0d6]">≈ {event.metadata?.estimated_minutes||30} мин</span>{event.metadata?.app_path&&<Link className="btn-ghost" to={event.metadata.app_path}>Открыть связанный раздел <ChevronRight size={15}/></Link>}</div></div><span className="badge bg-[#f2e6df]">{formatEventSource(event.source)}</span></div><div className="mt-5 border-t border-black/10 pt-4"><div className="flex justify-between items-center gap-3"><b>Чеклист</b><button className="btn-ghost" onClick={()=>addSubtask(event)}><Plus size={14}/>Подзадача</button></div><div className="space-y-3 mt-3">{eventSubtasks.map(task=><div className="grid md:grid-cols-[24px_1fr_150px_90px] gap-2 items-center" key={task.id}><input type="checkbox" checked={task.completed} onChange={e=>updateSubtask(task.id,{completed:e.target.checked})} aria-label={`Выполнить: ${task.title}`}/><input value={task.title} onChange={e=>setSubtasks(items=>items.map(item=>item.id===task.id?{...item,title:e.target.value}:item))} onBlur={e=>updateSubtask(task.id,{title:e.target.value})}/><input type="date" value={task.due_date} onChange={e=>updateSubtask(task.id,{due_date:e.target.value})} aria-label="Срок подзадачи"/><small className="source">{task.estimated_minutes} мин</small></div>)}</div></div>{eventHistory.length>0&&<details className="mt-4"><summary className="cursor-pointer font-bold text-sm">История изменений ({eventHistory.length})</summary><div className="space-y-2 mt-3">{eventHistory.slice(0,6).map(item=><div className="source" key={item.id}>{new Date(item.created_at).toLocaleString('ru-RU')}: {item.reason}{item.field_name==='date'&&<> · {item.old_value} → {item.new_value}</>}</div>)}</div></details>}<button className="btn-ghost mt-4" onClick={()=>downloadIcs(event)}><CalendarDays size={15}/>Синхронизировать этап</button></div></div>})}</div>{!events.length&&<div className="empty-state panel mt-8"><CalendarDays size={38}/><h3 className="font-extrabold mt-3">Roadmap пока пуст</h3><p className="muted">Добавь вузы в шортлист и пересчитай план — появятся этапы, чеклисты и сроки.</p></div>}</section>;
 }
 
 function Networking(){const {profile,universities}=useWorkspace();const [kind,setKind]=useState('research');const [university,setUniversity]=useState(universities[0]?.name||'университета');const generated=useMemo(()=>kind==='research'?`Subject: Prospective student interested in ${profile.target_major}\n\nDear Professor,\n\nMy name is ${profile.full_name||'[Name]'}, and I am a student at ${profile.school||'[School]'} exploring ${profile.target_major}. I am particularly interested in your work at ${university}. My current portfolio focuses on ${profile.narrative_about_me||'[briefly describe your strongest project]'} and I would be grateful to learn whether there may be a small, well-scoped way to contribute to your research.\n\nI can share a concise portfolio and am happy to complete a trial task.\n\nBest regards,\n${profile.full_name||'[Name]'}`:`Subject: Financial aid reconsideration request\n\nDear Financial Aid Office,\n\nThank you for reviewing my application to ${university}. I am writing to respectfully ask whether my financial aid package can be reconsidered. My family’s realistic annual contribution is ${profile.currency} ${Number(profile.annual_budget||0).toLocaleString()}, and I require substantial support to enroll.\n\nI can provide updated financial documents and context upon request. ${profile.narrative_about_me||''}\n\nSincerely,\n${profile.full_name||'[Name]'}`,[kind,university,profile]);const [draft,setDraft]=useState(generated);useEffect(()=>setDraft(generated),[generated]);return <section><PageTitle icon={<Mail/>} eyebrow="networking utility" title="Черновик, который звучит как ты." sub="Northstar использует профиль для первого варианта. Перед отправкой обязательно проверь факты и адресата."/><div className="grid md:grid-cols-[.7fr_1.3fr] gap-5 mt-8"><div className="panel p-6"><Field label="Тип письма"><select value={kind} onChange={e=>setKind(e.target.value)}><option value="research">Research inquiry</option><option value="aid">Financial aid appeal</option></select></Field><Field label="Университет"><select value={university} onChange={e=>setUniversity(e.target.value)}>{universities.map(u=><option key={u.id}>{u.name}</option>)}</select></Field><div className="notice mt-5">Не отправляй массово. Добавь конкретную работу профессора или детали aid package.</div></div><div className="panel p-6"><textarea className="email-editor" value={draft} onChange={e=>setDraft(e.target.value)}/><button className="btn-primary mt-4" onClick={()=>navigator.clipboard.writeText(draft)}><Clipboard size={16}/>Скопировать черновик</button></div></div></section>}
