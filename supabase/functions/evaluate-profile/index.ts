@@ -5,6 +5,8 @@ const corsHeaders={
   'Access-Control-Allow-Headers':'authorization, x-client-info, apikey, content-type',
 };
 
+const DAILY_EVALUATION_LIMIT=10;
+
 type Profile={id:string;target_major:string;gpa_unweighted:number|null;gpa_scale:number;english_score:number|null;sat:number|null;nuet:number|null;interview_ready:boolean;target_countries:string[]};
 
 const clamp=(n:number)=>Math.max(0,Math.min(100,Math.round(n)));
@@ -40,7 +42,11 @@ Deno.serve(async(req)=>{
   if(req.method==='OPTIONS')return new Response('ok',{headers:corsHeaders});
   try{
     const auth=req.headers.get('Authorization')||'';
-    const supabase=createClient(Deno.env.get('SUPABASE_URL')!,Deno.env.get('SUPABASE_ANON_KEY')!,{global:{headers:{Authorization:auth}}});
+    const supabaseUrl=Deno.env.get('SUPABASE_URL')!;
+    const serviceRoleKey=Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+    if(!serviceRoleKey)throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
+    const supabase=createClient(supabaseUrl,Deno.env.get('SUPABASE_ANON_KEY')!,{global:{headers:{Authorization:auth}}});
+    const serviceSupabase=createClient(supabaseUrl,serviceRoleKey,{auth:{persistSession:false,autoRefreshToken:false}});
     const {data:{user}}=await supabase.auth.getUser();
     if(!user)return new Response(JSON.stringify({error:'Unauthorized'}),{status:401,headers:{...corsHeaders,'Content-Type':'application/json'}});
     const {universityId}=await req.json();
@@ -49,6 +55,16 @@ Deno.serve(async(req)=>{
       supabase.from('universities').select('*').eq('id',universityId).single()
     ]);
     if(!profile||!university)throw new Error('Profile or university not found');
+    const windowStart=new Date(Date.now()-24*60*60*1000).toISOString();
+    const {count:dailyCalls,error:dailyCallsError}=await supabase
+      .from('evaluation_calls')
+      .select('id',{count:'exact',head:true})
+      .eq('profile_id',profile.id)
+      .gt('called_at',windowStart);
+    if(dailyCallsError)throw dailyCallsError;
+    if((dailyCalls||0)>=DAILY_EVALUATION_LIMIT){
+      return new Response(JSON.stringify({error:'Дневной лимит ИИ-оценок исчерпан, попробуйте завтра.'}),{status:429,headers:{...corsHeaders,'Content-Type':'application/json'}});
+    }
     const [{data:activities},{data:olympiads},{data:ap}]=await Promise.all([
       supabase.from('activities').select('*').eq('profile_id',profile.id),
       supabase.from('olympiads').select('*').eq('profile_id',profile.id),
@@ -63,6 +79,13 @@ Deno.serve(async(req)=>{
     }
     const {data:saved,error}=await supabase.from('ai_evaluations').insert({...evaluation,profile_id:profile.id,university_id:university.id}).select().single();
     if(error)throw error;
+    const {error:callError}=await supabase.from('evaluation_calls').insert({profile_id:profile.id});
+    if(callError)throw callError;
+    const {error:leaderboardError}=await serviceSupabase
+      .from('profiles')
+      .update({leaderboard_score:evaluation.holistic_score})
+      .eq('id',profile.id);
+    if(leaderboardError)throw leaderboardError;
     return new Response(JSON.stringify({...saved,university}),{headers:{...corsHeaders,'Content-Type':'application/json'}});
   }catch(error){return new Response(JSON.stringify({error:error instanceof Error?error.message:'Evaluation failed'}),{status:400,headers:{...corsHeaders,'Content-Type':'application/json'}})}
 });
