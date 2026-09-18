@@ -159,6 +159,8 @@ export function buildUniversityRoadmap(university,profile,options={}){
   const deadline=resolveApplicationDeadline(university.application_deadline,today,fallbackDays);
   const majorIntro=majorContextText(profile.target_major);
   const requirements=formatRequirementValue(university.other_requirements?.tests);
+  const scoreSummary=`Текущие результаты: GPA ${profile.gpa_unweighted??'не указан'}, SAT ${profile.sat??'не указан'}, ACT ${profile.act??'не указан'}, NUET ${profile.nuet??'не указан'}, English ${profile.english_score??'не указан'}.`;
+  const portfolioSummary=options.portfolioSummary?` Портфолио: ${options.portfolioSummary}.`:'';
   const universityKey=university.id||university.name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
   const plans=stageBlueprints.map(stage=>{
     const date=shiftDate(deadline,stage.offset);
@@ -168,7 +170,7 @@ export function buildUniversityRoadmap(university,profile,options={}){
         title:`${stage.title} — ${university.name}`,
         date:toIsoDate(date),
         type:stage.type,
-        description:`${majorIntro}${stage.why} Требования: ${requirements}`,
+        description:`${majorIntro}${stage.why} Требования: ${requirements}. ${stage.key==='tests'?scoreSummary:''}${portfolioSummary}`,
         roadmap_key:`${universityKey}:${stage.key}`,
         metadata:{
           stage:stage.key,
