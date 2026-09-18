@@ -15,6 +15,8 @@ export function AuthProvider({children}){
  const value=useMemo(()=>({session,user:session?.user||null,loading,configured:supabaseConfigured,
   signIn:(email,password)=>supabase.auth.signInWithPassword({email,password}),
   signUp:(email,password,fullName)=>supabase.auth.signUp({email,password,options:{data:{full_name:fullName}}}),
+  resetPassword:(email)=>supabase.auth.resetPasswordForEmail(email,{redirectTo:`${window.location.origin}/reset-password`}),
+  updatePassword:(newPassword)=>supabase.auth.updateUser({password:newPassword}),
   signOut:()=>supabase.auth.signOut()
  }),[session,loading]);
  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
