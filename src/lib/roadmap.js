@@ -78,3 +78,158 @@ export function shiftDate(date,days){
 export function toIsoDate(date){
   return date.toISOString().slice(0,10);
 }
+
+
+const stageBlueprints=[
+  {
+    key:'documents',
+    title:'Собрать документы',
+    offset:-150,
+    type:'task',
+    estimatedMinutes:180,
+    appPath:'/portfolio',
+    why:'Без полного пакета документов нельзя проверить требования и вовремя отправить заявку.',
+    subtasks:[
+      ['Запросить выписку оценок и справку из школы',-14,60],
+      ['Проверить требования к переводу и заверению',-7,45],
+      ['Собрать паспорт и академические документы',0,75],
+    ],
+  },
+  {
+    key:'tests',
+    title:'Закрыть требования по тестам',
+    offset:-120,
+    type:'exam',
+    estimatedMinutes:240,
+    appPath:'/portfolio',
+    why:'Результаты тестов определяют, можно ли подаваться в выбранную программу без дополнительной пересдачи.',
+    subtasks:[
+      ['Сравнить текущие баллы с требованиями вуза',-14,45],
+      ['Забронировать ближайшую подходящую дату экзамена',-7,45],
+      ['Подготовить и отправить официальный score report',0,150],
+    ],
+  },
+  {
+    key:'recommendations',
+    title:'Запросить рекомендации',
+    offset:-95,
+    type:'task',
+    estimatedMinutes:120,
+    appPath:'/portfolio',
+    why:'Учителю нужно время, чтобы написать конкретное письмо и отправить его до дедлайна.',
+    subtasks:[
+      ['Выбрать рекомендателей под Major / Spike',-14,30],
+      ['Передать рекомендателю достижения и контекст',-7,45],
+      ['Проверить статус отправки письма',0,45],
+    ],
+  },
+  {
+    key:'essays',
+    title:'Подготовить эссе',
+    offset:-75,
+    type:'task',
+    estimatedMinutes:360,
+    appPath:'/assistant',
+    why:'Сильное эссе связывает цифры и активности в одну понятную историю кандидата.',
+    subtasks:[
+      ['Разобрать prompt и выбрать личный эпизод',-21,60],
+      ['Написать первый черновик',-14,150],
+      ['Получить обратную связь и отредактировать',0,150],
+    ],
+  },
+  {
+    key:'final-check',
+    title:'Финальная проверка заявки',
+    offset:-14,
+    type:'deadline',
+    estimatedMinutes:120,
+    appPath:'/universities',
+    why:'Запас до официального дедлайна снижает риск технических ошибок и недостающих документов.',
+    subtasks:[
+      ['Сверить поля заявки с документами',-7,45],
+      ['Проверить эссе, рекомендации и score reports',-3,45],
+      ['Отправить заявку и сохранить подтверждение',0,30],
+    ],
+  },
+];
+
+export function buildUniversityRoadmap(university,profile,options={}){
+  const today=options.today||new Date();
+  const fallbackDays=options.fallbackDays||180;
+  const deadline=resolveApplicationDeadline(university.application_deadline,today,fallbackDays);
+  const majorIntro=majorContextText(profile.target_major);
+  const requirements=formatRequirementValue(university.other_requirements?.tests);
+  const universityKey=university.id||university.name.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+  const plans=stageBlueprints.map(stage=>{
+    const date=shiftDate(deadline,stage.offset);
+    return {
+      key:`${universityKey}:${stage.key}`,
+      event:{
+        title:`${stage.title} — ${university.name}`,
+        date:toIsoDate(date),
+        type:stage.type,
+        description:`${majorIntro}${stage.why} Требования: ${requirements}`,
+        roadmap_key:`${universityKey}:${stage.key}`,
+        metadata:{
+          stage:stage.key,
+          university:university.name,
+          university_id:university.id||null,
+          application_deadline:toIsoDate(deadline),
+          why:stage.why,
+          app_path:stage.appPath,
+          estimated_minutes:stage.estimatedMinutes,
+          change_reason:`Этап пересчитан от дедлайна ${university.name}: ${toIsoDate(deadline)}`,
+        },
+      },
+      subtasks:stage.subtasks.map(([title,offset,estimatedMinutes],sortOrder)=>({
+        title,
+        due_date:toIsoDate(shiftDate(date,offset)),
+        estimated_minutes:estimatedMinutes,
+        sort_order:sortOrder,
+      })),
+    };
+  });
+
+  const rawRequirements=JSON.stringify(university.other_requirements?.tests||'').toLowerCase();
+  const region=`${university.country||''} ${university.region||''}`.toLowerCase();
+  if(region.includes('hong kong')||rawRequirements.includes('interview')){
+    const date=shiftDate(deadline,-42);
+    const why='Практика заранее помогает подготовить конкретные ответы о мотивации, Major / Spike и выбранной программе.';
+    plans.push({
+      key:`${universityKey}:interview`,
+      event:{
+        title:`Подготовка к интервью — ${university.name}`,
+        date:toIsoDate(date),
+        type:'interview',
+        description:`${majorIntro}${why}`,
+        roadmap_key:`${universityKey}:interview`,
+        metadata:{
+          stage:'interview',
+          university:university.name,
+          university_id:university.id||null,
+          application_deadline:toIsoDate(deadline),
+          why,
+          app_path:'/assistant',
+          estimated_minutes:180,
+          change_reason:`Интервью пересчитано за 6 недель до дедлайна ${university.name}: ${toIsoDate(deadline)}`,
+        },
+      },
+      subtasks:[
+        {title:'Подготовить ответы о мотивации и Major / Spike',due_date:toIsoDate(shiftDate(date,-14)),estimated_minutes:60,sort_order:0},
+        {title:'Провести первое mock-интервью',due_date:toIsoDate(shiftDate(date,-7)),estimated_minutes:60,sort_order:1},
+        {title:'Провести финальную репетицию',due_date:toIsoDate(date),estimated_minutes:60,sort_order:2},
+      ],
+    });
+  }
+
+  return {deadline:toIsoDate(deadline),plans:plans.sort((a,b)=>a.event.date.localeCompare(b.event.date))};
+}
+
+export function calculateRoadmapProgress(events,subtasks,university){
+  const relevantEvents=university?events.filter(event=>event.metadata?.university===university):events;
+  const eventIds=new Set(relevantEvents.map(event=>event.id));
+  const relevantSubtasks=subtasks.filter(task=>eventIds.has(task.calendar_event_id));
+  const total=relevantEvents.length+relevantSubtasks.length;
+  const completed=relevantEvents.filter(event=>event.completed).length+relevantSubtasks.filter(task=>task.completed).length;
+  return total?Math.round(completed/total*100):0;
+}
