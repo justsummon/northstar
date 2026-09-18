@@ -75,6 +75,8 @@ begin
 end;
 $$;
 
+revoke execute on function public.record_roadmap_event_change() from public;
+
 create trigger calendar_events_record_roadmap_change
 after update of date,title,description,completed on public.calendar_events
 for each row execute procedure public.record_roadmap_event_change();
