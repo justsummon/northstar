@@ -16,7 +16,7 @@ Northstar превращает профиль пользователя — оц�
 6. Roadmap
 7. Next step
 
-Состояние и прогресс сохраняются в `localStorage`. При изменении бюджета, страны или экзамена рекомендации и план пересчитываются автоматически.
+Авторизованные данные сохраняются в Supabase Postgres и защищены Row Level Security. В `localStorage` остаётся только временный черновик анкеты до сохранения.
 
 ## Возможности
 
@@ -30,6 +30,11 @@ Northstar превращает профиль пользователя — оц�
 - сохранение чек-листа между сессиями;
 - адаптивный интерфейс и поддержка `prefers-reduced-motion`;
 - rule-based fallback без обязательного API-ключа.
+- email/password авторизация и защищённые маршруты;
+- AI-evaluator со связностью Major / Spike и региональными весами;
+- radar chart профиля против среднего поступившего;
+- редактируемые cold-email черновики;
+- 650 синтетических публичных профилей для leaderboard.
 
 ## Стек
 
@@ -37,7 +42,9 @@ Northstar превращает профиль пользователя — оц�
 - Vite 6
 - Tailwind CSS 3
 - Lucide React
-- React Context не требуется: состояние компактно хранится в корневом компоненте и синхронизируется с `localStorage`.
+- Supabase Auth + Postgres + Row Level Security + Edge Functions
+- React Router
+- Recharts
 
 ## Запуск локально
 
@@ -52,6 +59,28 @@ Production-сборка:
 npm run build
 npm run preview
 ```
+
+## Supabase
+
+1. Установить Supabase CLI и связать проект: `supabase link --project-ref <ref>`.
+2. Применить миграции и seed: `supabase db reset` локально либо `supabase db push`, затем выполнить `supabase/seed.sql` в SQL Editor.
+3. Развернуть AI-функцию: `supabase functions deploy evaluate-profile`.
+4. Добавить секреты функции: `supabase secrets set ANTHROPIC_API_KEY=...`.
+5. Скопировать `.env.example` в `.env.local` и заполнить публичные ключи Supabase.
+
+Для локального Supabase: `supabase start`, затем `npm run dev`.
+
+## Переменные окружения
+
+Frontend (`.env.local`):
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+
+Edge Function secrets:
+
+- `ANTHROPIC_API_KEY` — опционально; без него работает персонализированный rule-based fallback;
+- `SUPABASE_SERVICE_ROLE_KEY` — зарезервирован для серверных административных задач, не передавать во frontend.
 
 ## Сценарий для жюри
 
@@ -71,7 +100,7 @@ npm run preview
 
 ## Архитектурная расширяемость
 
-Новые страны и программы добавляются через объекты датасета `programs`. Персонализация отделена функциями `getRecommendations`, `diagnosis` и `roadmap`, поэтому rule-based слой можно заменить вызовом LLM без изменения пользовательского пути.
+Новые страны и программы добавляются строками в `universities`, а региональные правила — в Edge Function. Миграции, seed и AI-функция находятся в `supabase/`; UI разделён на маршруты без изменения бренда Northstar.
 
 ## Команда
 
