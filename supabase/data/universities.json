@@ -1,0 +1,2628 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-09-18",
+  "notes": "Curated institutional catalog. Null means the institution does not publish one stable institution-wide value or the value requires programme-level verification. Importer preserves existing sourced values when this snapshot is null.",
+  "records": [
+    {
+      "name": "Massachusetts Institute of Technology",
+      "country": "USA",
+      "region": "North America",
+      "city": "Cambridge",
+      "qs_rank": 1,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://mit.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://mit.edu",
+      "website_url": "https://mit.edu",
+      "admissions_url": "https://mit.edu",
+      "data_source_url": "https://mit.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Harvard University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Cambridge",
+      "qs_rank": 4,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://harvard.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://harvard.edu",
+      "website_url": "https://harvard.edu",
+      "admissions_url": "https://harvard.edu",
+      "data_source_url": "https://harvard.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Stanford University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Stanford",
+      "qs_rank": 6,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://stanford.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://stanford.edu",
+      "website_url": "https://stanford.edu",
+      "admissions_url": "https://stanford.edu",
+      "data_source_url": "https://stanford.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "California Institute of Technology",
+      "country": "USA",
+      "region": "North America",
+      "city": "Pasadena",
+      "qs_rank": 10,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://caltech.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://caltech.edu",
+      "website_url": "https://caltech.edu",
+      "admissions_url": "https://caltech.edu",
+      "data_source_url": "https://caltech.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Pennsylvania",
+      "country": "USA",
+      "region": "North America",
+      "city": "Philadelphia",
+      "qs_rank": 11,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://upenn.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://upenn.edu",
+      "website_url": "https://upenn.edu",
+      "admissions_url": "https://upenn.edu",
+      "data_source_url": "https://upenn.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Princeton University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Princeton",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://princeton.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://princeton.edu",
+      "website_url": "https://princeton.edu",
+      "admissions_url": "https://princeton.edu",
+      "data_source_url": "https://princeton.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Yale University",
+      "country": "USA",
+      "region": "North America",
+      "city": "New Haven",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://yale.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://yale.edu",
+      "website_url": "https://yale.edu",
+      "admissions_url": "https://yale.edu",
+      "data_source_url": "https://yale.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Columbia University",
+      "country": "USA",
+      "region": "North America",
+      "city": "New York",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://columbia.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://columbia.edu",
+      "website_url": "https://columbia.edu",
+      "admissions_url": "https://columbia.edu",
+      "data_source_url": "https://columbia.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Chicago",
+      "country": "USA",
+      "region": "North America",
+      "city": "Chicago",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://uchicago.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://uchicago.edu",
+      "website_url": "https://uchicago.edu",
+      "admissions_url": "https://uchicago.edu",
+      "data_source_url": "https://uchicago.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Cornell University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Ithaca",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://cornell.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://cornell.edu",
+      "website_url": "https://cornell.edu",
+      "admissions_url": "https://cornell.edu",
+      "data_source_url": "https://cornell.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Brown University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Providence",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://brown.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://brown.edu",
+      "website_url": "https://brown.edu",
+      "admissions_url": "https://brown.edu",
+      "data_source_url": "https://brown.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Dartmouth College",
+      "country": "USA",
+      "region": "North America",
+      "city": "Hanover",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://dartmouth.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://dartmouth.edu",
+      "website_url": "https://dartmouth.edu",
+      "admissions_url": "https://dartmouth.edu",
+      "data_source_url": "https://dartmouth.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Duke University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Durham",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://duke.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://duke.edu",
+      "website_url": "https://duke.edu",
+      "admissions_url": "https://duke.edu",
+      "data_source_url": "https://duke.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Northwestern University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Evanston",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://northwestern.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://northwestern.edu",
+      "website_url": "https://northwestern.edu",
+      "admissions_url": "https://northwestern.edu",
+      "data_source_url": "https://northwestern.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Johns Hopkins University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Baltimore",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://jhu.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://jhu.edu",
+      "website_url": "https://jhu.edu",
+      "admissions_url": "https://jhu.edu",
+      "data_source_url": "https://jhu.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Rice University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Houston",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://rice.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://rice.edu",
+      "website_url": "https://rice.edu",
+      "admissions_url": "https://rice.edu",
+      "data_source_url": "https://rice.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Vanderbilt University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Nashville",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://vanderbilt.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://vanderbilt.edu",
+      "website_url": "https://vanderbilt.edu",
+      "admissions_url": "https://vanderbilt.edu",
+      "data_source_url": "https://vanderbilt.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Washington University in St. Louis",
+      "country": "USA",
+      "region": "North America",
+      "city": "St. Louis",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://wustl.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://wustl.edu",
+      "website_url": "https://wustl.edu",
+      "admissions_url": "https://wustl.edu",
+      "data_source_url": "https://wustl.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of California, Berkeley",
+      "country": "USA",
+      "region": "North America",
+      "city": "Berkeley",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://berkeley.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://berkeley.edu",
+      "website_url": "https://berkeley.edu",
+      "admissions_url": "https://berkeley.edu",
+      "data_source_url": "https://berkeley.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of California, Los Angeles",
+      "country": "USA",
+      "region": "North America",
+      "city": "Los Angeles",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ucla.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ucla.edu",
+      "website_url": "https://ucla.edu",
+      "admissions_url": "https://ucla.edu",
+      "data_source_url": "https://ucla.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of California, San Diego",
+      "country": "USA",
+      "region": "North America",
+      "city": "San Diego",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ucsd.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ucsd.edu",
+      "website_url": "https://ucsd.edu",
+      "admissions_url": "https://ucsd.edu",
+      "data_source_url": "https://ucsd.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Michigan—Ann Arbor",
+      "country": "USA",
+      "region": "North America",
+      "city": "Ann Arbor",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://umich.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://umich.edu",
+      "website_url": "https://umich.edu",
+      "admissions_url": "https://umich.edu",
+      "data_source_url": "https://umich.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Georgia Institute of Technology",
+      "country": "USA",
+      "region": "North America",
+      "city": "Atlanta",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://gatech.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://gatech.edu",
+      "website_url": "https://gatech.edu",
+      "admissions_url": "https://gatech.edu",
+      "data_source_url": "https://gatech.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Illinois Urbana-Champaign",
+      "country": "USA",
+      "region": "North America",
+      "city": "Champaign",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://illinois.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://illinois.edu",
+      "website_url": "https://illinois.edu",
+      "admissions_url": "https://illinois.edu",
+      "data_source_url": "https://illinois.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Carnegie Mellon University",
+      "country": "USA",
+      "region": "North America",
+      "city": "Pittsburgh",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "SAT/ACT policy varies",
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://cmu.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://cmu.edu",
+      "website_url": "https://cmu.edu",
+      "admissions_url": "https://cmu.edu",
+      "data_source_url": "https://cmu.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Imperial College London",
+      "country": "UK",
+      "region": "Europe",
+      "city": "London",
+      "qs_rank": 2,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://imperial.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://imperial.ac.uk",
+      "website_url": "https://imperial.ac.uk",
+      "admissions_url": "https://imperial.ac.uk",
+      "data_source_url": "https://imperial.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Oxford",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Oxford",
+      "qs_rank": 3,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ox.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ox.ac.uk",
+      "website_url": "https://ox.ac.uk",
+      "admissions_url": "https://ox.ac.uk",
+      "data_source_url": "https://ox.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Cambridge",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Cambridge",
+      "qs_rank": 5,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://cam.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://cam.ac.uk",
+      "website_url": "https://cam.ac.uk",
+      "admissions_url": "https://cam.ac.uk",
+      "data_source_url": "https://cam.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University College London",
+      "country": "UK",
+      "region": "Europe",
+      "city": "London",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ucl.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ucl.ac.uk",
+      "website_url": "https://ucl.ac.uk",
+      "admissions_url": "https://ucl.ac.uk",
+      "data_source_url": "https://ucl.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Edinburgh",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Edinburgh",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ed.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ed.ac.uk",
+      "website_url": "https://ed.ac.uk",
+      "admissions_url": "https://ed.ac.uk",
+      "data_source_url": "https://ed.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Manchester",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Manchester",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://manchester.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://manchester.ac.uk",
+      "website_url": "https://manchester.ac.uk",
+      "admissions_url": "https://manchester.ac.uk",
+      "data_source_url": "https://manchester.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "King's College London",
+      "country": "UK",
+      "region": "Europe",
+      "city": "London",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://kcl.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://kcl.ac.uk",
+      "website_url": "https://kcl.ac.uk",
+      "admissions_url": "https://kcl.ac.uk",
+      "data_source_url": "https://kcl.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "London School of Economics and Political Science",
+      "country": "UK",
+      "region": "Europe",
+      "city": "London",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://lse.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://lse.ac.uk",
+      "website_url": "https://lse.ac.uk",
+      "admissions_url": "https://lse.ac.uk",
+      "data_source_url": "https://lse.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Bristol",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Bristol",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://bristol.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://bristol.ac.uk",
+      "website_url": "https://bristol.ac.uk",
+      "admissions_url": "https://bristol.ac.uk",
+      "data_source_url": "https://bristol.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Warwick",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Coventry",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://warwick.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://warwick.ac.uk",
+      "website_url": "https://warwick.ac.uk",
+      "admissions_url": "https://warwick.ac.uk",
+      "data_source_url": "https://warwick.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Southampton",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Southampton",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://southampton.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://southampton.ac.uk",
+      "website_url": "https://southampton.ac.uk",
+      "admissions_url": "https://southampton.ac.uk",
+      "data_source_url": "https://southampton.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Glasgow",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Glasgow",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://gla.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://gla.ac.uk",
+      "website_url": "https://gla.ac.uk",
+      "admissions_url": "https://gla.ac.uk",
+      "data_source_url": "https://gla.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Birmingham",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Birmingham",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://birmingham.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://birmingham.ac.uk",
+      "website_url": "https://birmingham.ac.uk",
+      "admissions_url": "https://birmingham.ac.uk",
+      "data_source_url": "https://birmingham.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Leeds",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Leeds",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://leeds.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://leeds.ac.uk",
+      "website_url": "https://leeds.ac.uk",
+      "admissions_url": "https://leeds.ac.uk",
+      "data_source_url": "https://leeds.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Durham University",
+      "country": "UK",
+      "region": "Europe",
+      "city": "Durham",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "program-specific admissions test"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://durham.ac.uk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://durham.ac.uk",
+      "website_url": "https://durham.ac.uk",
+      "admissions_url": "https://durham.ac.uk",
+      "data_source_url": "https://durham.ac.uk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Toronto",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Toronto",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://utoronto.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://utoronto.ca",
+      "website_url": "https://utoronto.ca",
+      "admissions_url": "https://utoronto.ca",
+      "data_source_url": "https://utoronto.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of British Columbia",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Vancouver",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ubc.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ubc.ca",
+      "website_url": "https://ubc.ca",
+      "admissions_url": "https://ubc.ca",
+      "data_source_url": "https://ubc.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "McGill University",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Montreal",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://mcgill.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://mcgill.ca",
+      "website_url": "https://mcgill.ca",
+      "admissions_url": "https://mcgill.ca",
+      "data_source_url": "https://mcgill.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Waterloo",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Waterloo",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://uwaterloo.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://uwaterloo.ca",
+      "website_url": "https://uwaterloo.ca",
+      "admissions_url": "https://uwaterloo.ca",
+      "data_source_url": "https://uwaterloo.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Alberta",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Edmonton",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ualberta.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ualberta.ca",
+      "website_url": "https://ualberta.ca",
+      "admissions_url": "https://ualberta.ca",
+      "data_source_url": "https://ualberta.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "McMaster University",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Hamilton",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://mcmaster.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://mcmaster.ca",
+      "website_url": "https://mcmaster.ca",
+      "admissions_url": "https://mcmaster.ca",
+      "data_source_url": "https://mcmaster.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Université de Montréal",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Montreal",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://umontreal.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://umontreal.ca",
+      "website_url": "https://umontreal.ca",
+      "admissions_url": "https://umontreal.ca",
+      "data_source_url": "https://umontreal.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Calgary",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Calgary",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ucalgary.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ucalgary.ca",
+      "website_url": "https://ucalgary.ca",
+      "admissions_url": "https://ucalgary.ca",
+      "data_source_url": "https://ucalgary.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Queen's University",
+      "country": "Canada",
+      "region": "North America",
+      "city": "Kingston",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://queensu.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://queensu.ca",
+      "website_url": "https://queensu.ca",
+      "admissions_url": "https://queensu.ca",
+      "data_source_url": "https://queensu.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Western University",
+      "country": "Canada",
+      "region": "North America",
+      "city": "London",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://uwo.ca"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://uwo.ca",
+      "website_url": "https://uwo.ca",
+      "admissions_url": "https://uwo.ca",
+      "data_source_url": "https://uwo.ca",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "The University of Hong Kong",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": 17,
+      "admission_type": "reach",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://hku.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://hku.hk",
+      "website_url": "https://hku.hk",
+      "admissions_url": "https://hku.hk",
+      "data_source_url": "https://hku.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "The Chinese University of Hong Kong",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": 36,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://cuhk.edu.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://cuhk.edu.hk",
+      "website_url": "https://cuhk.edu.hk",
+      "admissions_url": "https://cuhk.edu.hk",
+      "data_source_url": "https://cuhk.edu.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Hong Kong University of Science and Technology",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": 47,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ust.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ust.hk",
+      "website_url": "https://ust.hk",
+      "admissions_url": "https://ust.hk",
+      "data_source_url": "https://ust.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "The Hong Kong Polytechnic University",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": 57,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://polyu.edu.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://polyu.edu.hk",
+      "website_url": "https://polyu.edu.hk",
+      "admissions_url": "https://polyu.edu.hk",
+      "data_source_url": "https://polyu.edu.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "City University of Hong Kong",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": 62,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://cityu.edu.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://cityu.edu.hk",
+      "website_url": "https://cityu.edu.hk",
+      "admissions_url": "https://cityu.edu.hk",
+      "data_source_url": "https://cityu.edu.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Hong Kong Baptist University",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://hkbu.edu.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://hkbu.edu.hk",
+      "website_url": "https://hkbu.edu.hk",
+      "admissions_url": "https://hkbu.edu.hk",
+      "data_source_url": "https://hkbu.edu.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Lingnan University",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ln.edu.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ln.edu.hk",
+      "website_url": "https://ln.edu.hk",
+      "admissions_url": "https://ln.edu.hk",
+      "data_source_url": "https://ln.edu.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "The Education University of Hong Kong",
+      "country": "Hong Kong",
+      "region": "Hong Kong",
+      "city": "Hong Kong",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS",
+          "SAT",
+          "interview may be required"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://eduhk.hk"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://eduhk.hk",
+      "website_url": "https://eduhk.hk",
+      "admissions_url": "https://eduhk.hk",
+      "data_source_url": "https://eduhk.hk",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "National University of Singapore",
+      "country": "Singapore",
+      "region": "Southeast Asia",
+      "city": "Singapore",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://nus.edu.sg"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://nus.edu.sg",
+      "website_url": "https://nus.edu.sg",
+      "admissions_url": "https://nus.edu.sg",
+      "data_source_url": "https://nus.edu.sg",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Nanyang Technological University",
+      "country": "Singapore",
+      "region": "Southeast Asia",
+      "city": "Singapore",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ntu.edu.sg"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ntu.edu.sg",
+      "website_url": "https://ntu.edu.sg",
+      "admissions_url": "https://ntu.edu.sg",
+      "data_source_url": "https://ntu.edu.sg",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Singapore Management University",
+      "country": "Singapore",
+      "region": "Southeast Asia",
+      "city": "Singapore",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://smu.edu.sg"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://smu.edu.sg",
+      "website_url": "https://smu.edu.sg",
+      "admissions_url": "https://smu.edu.sg",
+      "data_source_url": "https://smu.edu.sg",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Singapore University of Technology and Design",
+      "country": "Singapore",
+      "region": "Southeast Asia",
+      "city": "Singapore",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://sutd.edu.sg"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://sutd.edu.sg",
+      "website_url": "https://sutd.edu.sg",
+      "admissions_url": "https://sutd.edu.sg",
+      "data_source_url": "https://sutd.edu.sg",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Koç University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Istanbul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ku.edu.tr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ku.edu.tr",
+      "website_url": "https://ku.edu.tr",
+      "admissions_url": "https://ku.edu.tr",
+      "data_source_url": "https://ku.edu.tr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Sabancı University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Istanbul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://sabanciuniv.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://sabanciuniv.edu",
+      "website_url": "https://sabanciuniv.edu",
+      "admissions_url": "https://sabanciuniv.edu",
+      "data_source_url": "https://sabanciuniv.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Bilkent University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Ankara",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://bilkent.edu.tr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://bilkent.edu.tr",
+      "website_url": "https://bilkent.edu.tr",
+      "admissions_url": "https://bilkent.edu.tr",
+      "data_source_url": "https://bilkent.edu.tr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Middle East Technical University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Ankara",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://metu.edu.tr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://metu.edu.tr",
+      "website_url": "https://metu.edu.tr",
+      "admissions_url": "https://metu.edu.tr",
+      "data_source_url": "https://metu.edu.tr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Boğaziçi University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Istanbul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://boun.edu.tr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://boun.edu.tr",
+      "website_url": "https://boun.edu.tr",
+      "admissions_url": "https://boun.edu.tr",
+      "data_source_url": "https://boun.edu.tr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Istanbul Technical University",
+      "country": "Turkey",
+      "region": "Middle East",
+      "city": "Istanbul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://itu.edu.tr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://itu.edu.tr",
+      "website_url": "https://itu.edu.tr",
+      "admissions_url": "https://itu.edu.tr",
+      "data_source_url": "https://itu.edu.tr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Khalifa University",
+      "country": "UAE",
+      "region": "Middle East",
+      "city": "Abu Dhabi",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "См. официальные требования программы"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://ku.ac.ae"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://ku.ac.ae",
+      "website_url": "https://ku.ac.ae",
+      "admissions_url": "https://ku.ac.ae",
+      "data_source_url": "https://ku.ac.ae",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "United Arab Emirates University",
+      "country": "UAE",
+      "region": "Middle East",
+      "city": "Al Ain",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "См. официальные требования программы"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://uaeu.ac.ae"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://uaeu.ac.ae",
+      "website_url": "https://uaeu.ac.ae",
+      "admissions_url": "https://uaeu.ac.ae",
+      "data_source_url": "https://uaeu.ac.ae",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "American University of Sharjah",
+      "country": "UAE",
+      "region": "Middle East",
+      "city": "Sharjah",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "См. официальные требования программы"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://aus.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://aus.edu",
+      "website_url": "https://aus.edu",
+      "admissions_url": "https://aus.edu",
+      "data_source_url": "https://aus.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "New York University Abu Dhabi",
+      "country": "UAE",
+      "region": "Middle East",
+      "city": "Abu Dhabi",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "См. официальные требования программы"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://nyuad.nyu.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://nyuad.nyu.edu",
+      "website_url": "https://nyuad.nyu.edu",
+      "admissions_url": "https://nyuad.nyu.edu",
+      "data_source_url": "https://nyuad.nyu.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "University of Birmingham Dubai",
+      "country": "UAE",
+      "region": "Middle East",
+      "city": "Dubai",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "IELTS/TOEFL",
+          "См. официальные требования программы"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://birmingham.ac.uk/dubai"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://birmingham.ac.uk",
+      "website_url": "https://birmingham.ac.uk/dubai",
+      "admissions_url": "https://birmingham.ac.uk/dubai",
+      "data_source_url": "https://birmingham.ac.uk/dubai",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Seoul National University",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Seoul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://snu.ac.kr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://snu.ac.kr",
+      "website_url": "https://snu.ac.kr",
+      "admissions_url": "https://snu.ac.kr",
+      "data_source_url": "https://snu.ac.kr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Korea Advanced Institute of Science and Technology",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Daejeon",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://kaist.ac.kr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://kaist.ac.kr",
+      "website_url": "https://kaist.ac.kr",
+      "admissions_url": "https://kaist.ac.kr",
+      "data_source_url": "https://kaist.ac.kr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Yonsei University",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Seoul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://yonsei.ac.kr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://yonsei.ac.kr",
+      "website_url": "https://yonsei.ac.kr",
+      "admissions_url": "https://yonsei.ac.kr",
+      "data_source_url": "https://yonsei.ac.kr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Korea University",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Seoul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://korea.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://korea.edu",
+      "website_url": "https://korea.edu",
+      "admissions_url": "https://korea.edu",
+      "data_source_url": "https://korea.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Pohang University of Science and Technology",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Pohang",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://postech.ac.kr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://postech.ac.kr",
+      "website_url": "https://postech.ac.kr",
+      "admissions_url": "https://postech.ac.kr",
+      "data_source_url": "https://postech.ac.kr",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Sungkyunkwan University",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Seoul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://skku.edu"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://skku.edu",
+      "website_url": "https://skku.edu",
+      "admissions_url": "https://skku.edu",
+      "data_source_url": "https://skku.edu",
+      "data_verified_at": "2026-09-18"
+    },
+    {
+      "name": "Hanyang University",
+      "country": "South Korea",
+      "region": "East Asia",
+      "city": "Seoul",
+      "qs_rank": null,
+      "admission_type": "match",
+      "acceptance_rate": null,
+      "gpa_requirement": null,
+      "sat_requirement": null,
+      "sat_average": null,
+      "act_requirement": null,
+      "act_average": null,
+      "nuet_requirement": null,
+      "nuet_average": null,
+      "application_deadline": null,
+      "other_requirements": {
+        "tests": [
+          "См. официальные требования к международной квалификации"
+        ],
+        "data_note": "Поля без опубликованного институционального значения оставлены пустыми; требования зависят от программы и квалификации.",
+        "source_urls": [
+          "https://hanyang.ac.kr"
+        ],
+        "data_status": "official-source-linked"
+      },
+      "logo_url": "https://www.google.com/s2/favicons?sz=128&domain_url=https://hanyang.ac.kr",
+      "website_url": "https://hanyang.ac.kr",
+      "admissions_url": "https://hanyang.ac.kr",
+      "data_source_url": "https://hanyang.ac.kr",
+      "data_verified_at": "2026-09-18"
+    }
+  ]
+}

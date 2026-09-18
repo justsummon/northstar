@@ -35,10 +35,12 @@ Northstar превращает профиль пользователя — оц�
 - radar chart профиля против среднего поступившего;
 - редактируемые cold-email черновики;
 - 650 синтетических публичных профилей для leaderboard;
+- отдельный каталог 80+ вузов с source URL, importer и admin CRUD;
 - приватный шортлист и сравнение 2–4 вузов с последней AI-оценкой;
 - персональный roadmap по требованиям вузов из шортлиста;
 - восстановление пароля и полное удаление аккаунта.
 - Google OAuth рядом с email/password входом;
+- AI-ассистент на Gemini 2.5 Flash с минимизированным контекстом профиля и серверным ключом;
 
 ## Стек
 
@@ -68,8 +70,8 @@ npm run preview
 
 1. Установить Supabase CLI и связать проект: `supabase link --project-ref <ref>`.
 2. Применить миграции и seed: `supabase db reset` локально либо `supabase db push`, затем выполнить `supabase/seed.sql` в SQL Editor.
-3. Развернуть Edge Functions: `supabase functions deploy evaluate-profile` и `supabase functions deploy delete-account`.
-4. Добавить секреты функций: `supabase secrets set ANTHROPIC_API_KEY=... SUPABASE_SERVICE_ROLE_KEY=...`.
+3. Развернуть Edge Functions: `supabase functions deploy evaluate-profile`, `supabase functions deploy assistant-chat` и `supabase functions deploy delete-account`.
+4. Добавить ключ Gemini только в секреты функций: `supabase secrets set GEMINI_API_KEY=...`. `ANTHROPIC_API_KEY` остаётся опциональным для evaluator. `SUPABASE_SERVICE_ROLE_KEY` Supabase предоставляет Edge Functions автоматически — вручную задавать его не нужно.
 5. Скопировать `.env.example` в `.env.local` и заполнить публичные ключи Supabase.
 
 В настройках Auth → URL Configuration добавь production URL и `${production_origin}/reset-password` в разрешённые redirect URLs.
@@ -87,8 +89,38 @@ Frontend (`.env.local`):
 
 Edge Function secrets:
 
-- `ANTHROPIC_API_KEY` — опционально; без него работает персонализированный rule-based fallback;
-- `SUPABASE_SERVICE_ROLE_KEY` — обязателен для `delete-account` (и серверных обновлений оценки); хранить только в Edge Function secrets, никогда не передавать во frontend.
+- `GEMINI_API_KEY` — серверный ключ Gemini 2.5 Flash для `assistant-chat`; не добавлять во Vite-переменные;
+- `ANTHROPIC_API_KEY` — опционально для `evaluate-profile`; без него работает персонализированный rule-based fallback;
+- `SUPABASE_SERVICE_ROLE_KEY` — встроенный секрет Supabase Edge Functions для `delete-account`; не задавать через CLI и никогда не передавать во frontend.
+
+
+## Каталог университетов
+
+Каталог хранится отдельно от `seed.sql`:
+
+- `supabase/data/universities.json` — 80 вузов США, UK, Canada, Hong Kong, Singapore, Turkey, UAE и South Korea;
+- `scripts/import-universities.mjs` — идемпотентный upsert по названию;
+- пустое значение означает, что стабильный институциональный показатель не опубликован или требует проверки на уровне программы — importer не выдумывает его;
+- для вузов США importer опционально обогащает acceptance rate и средние SAT/ACT через официальный U.S. Department of Education College Scorecard API.
+
+После `supabase db push`:
+
+```bash
+SUPABASE_URL=https://project.supabase.co \
+SUPABASE_SERVICE_ROLE_KEY=server-only-key \
+COLLEGE_SCORECARD_API_KEY=optional-data-gov-key \
+npm run seed:universities
+```
+
+`SUPABASE_SERVICE_ROLE_KEY` используется только локальным importer-скриптом и не должен попадать в Vite/Vercel client env.
+
+Для admin CRUD сначала назначь роль через SQL Editor:
+
+```sql
+update public.users set role='admin' where email='owner@example.com';
+```
+
+После повторного входа появится пункт «Админ». Обычный пользователь не видит маршрут, а RLS запрещает ему insert/update/delete университетов.
 
 ## Сценарий для жюри
 
@@ -107,6 +139,7 @@ Edge Function secrets:
 ```bash
 supabase db push
 supabase functions deploy evaluate-profile
+supabase functions deploy assistant-chat
 supabase functions deploy delete-account
 ```
 
